@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function InputWeight() {
-    const [inputPreferPrice, setInputPreferPrice] = useState("");
-    const [inputPreferRating, setInputPreferRating] = useState("");
-    const [inputPreferReview, setInputPreferReview] = useState("");
+    const [inputPriceWeight, setinputPriceWeight] = useState(0.1);
+    const [inputRatingWeight, setinputRatingWeight] = useState(0.0);
+    const [inputReviewWeight, setinputReviewWeight] = useState(0.0);
 
     const navigate = useNavigate();
 
@@ -18,54 +18,48 @@ function InputWeight() {
     console.log(selectedRecommedYn);
     console.log(selectedStartDate);
 
-    // 입력값 저장
+    
     const inputChange = (event) => {
-        if (event.target.name === "price") {
-            setInputPreferPrice(event.target.value)
-        } else if (event.target.name === "rating") {
-            setInputPreferRating(event.target.value)
-        } else if (event.target.name === "review") {
-            setInputPreferReview(event.target.value)
+        if (event.target.name === "priceWeight") {
+            setinputPriceWeight(event.target.value)
+        } else if (event.target.name === "ratingWeight") {
+            setinputRatingWeight(event.target.value)
+        } else if (event.target.name === "reviewWeight") {
+            setinputReviewWeight(event.target.value)
         }
     }
 
-
-    // function onChange(event) {
-    //     if(event.target.name === "username") {
-    //         setUsername(event.target.value)
-    //     } else if (event.target.name === "userid") {
-    //         setUserid(event.target.value)
-    //     } else if (event.target.name === "password") {
-    //         setPassword(event.target.value)
-    //     } else if (event.target.name === "passwordConfirm") {
-    //         setPasswordConfirm(event.target.value)
-    //     } else if (event.target.name === "email") {
-    //         setEmail(event.target.value)
-    //     }
-    // }
+    console.log(inputPriceWeight)
 
     const moveNextClick = () => {
-        navigate('/createplan/y/choicesights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'yes'}})
+        navigate('/createplan/y/choicesights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'Y', inputPriceWeight, inputRatingWeight, inputReviewWeight}})
     }
 
     return (
         <div className="container my-3">
-            <h3>사용자 선호도 입력</h3>
+            <h3><b>사용자 선호도 입력</b></h3>
+            <br/>
+            <p>가격 가중치가 높을수록 추천된는 금액 높음</p>
+            <div className="mb-3">
+                <label htmlFor="priceWeight" className="form-label"><b>"가격"</b></label>
+                <input onChange={inputChange} value={inputPriceWeight} type="range" className="form-range" min="0" max="1" step="0.1" id="priceWeight" name="priceWeight"></input>
+                <div><span>선택 값 : </span>{inputPriceWeight}</div>    
+            </div>
             <br/>
             <div className="mb-3">
-                <label for="customRange1" className="form-label">가격</label>
-                <input type="range" className="form-range" min="0" max="100" step="5" id="customRange1"></input>
-            </div>
-            <div className="mb-3">
-                <label for="customRange2" className="form-label">별점</label>
-                <input type="range" className="form-range" min="0" max="100" step="5" id="customRange2"></input>
-            </div>
-            <div className="mb-3">
-                <label for="customRange3" className="form-label">리뷰</label>
-                <input type="range" className="form-range" min="0" max="100" step="5" id="customRange3"></input>
+                <label htmlFor="ratingWeight" className="form-label"><b>"별점"</b></label>
+                <input onChange={inputChange} value={inputRatingWeight} type="range" className="form-range" min="0" max="1" step="0.1" id="ratingWeight" name="ratingWeight"></input>
+                <div><span>선택 값 : </span>{inputRatingWeight}</div>
             </div>
             <br/>
-            <button type="button" onClick={moveNextClick}>다음</button>
+            <div className="mb-3">
+                <label htmlFor="reviewWeight" className="form-label"><b>"리뷰"</b></label>
+                <input onChange={inputChange} value={inputReviewWeight} type="range" className="form-range" min="0" max="1" step="0.1" id="reviewWeight" name="reviewWeight"></input>
+            </div>
+            <div><span>선택 값 : </span>{inputReviewWeight}</div>
+            <br/>
+            <br/>
+            <button type="button" className="btn btn-success" onClick={moveNextClick}><b>다음</b></button>
         </div>
     )
 }

@@ -11,17 +11,17 @@ function ChoiceRecommend() {
     // const selectedStartDate = location.state.startDate;
     // const selectedEndDate = location.state.endDate;
     // const selectedHostels = location.state.selectedHostels;
-    console.log(selectedHostels)
-    console.log(selectedEndDate)
+    console.log('숙소:', selectedHostels)
+    console.log('종료일:', selectedEndDate)
 
     // 답변 여부에 따라 다른 주소 이동 및 선택한 날짜, 숙소, 추천여부 값 전달    
     async function Click(answer) {
         if (answer === 'no') {
-            setSelectedRecommedYn("No");
-            navigate('/createplan/n/choicesights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'no'}});
+            setSelectedRecommedYn("N");
+            navigate('/createplan/n/choicesights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'N'}});
         } else if (answer === 'yes') {
-            setSelectedRecommedYn("Yes");
-            navigate('/createplan/y/inputweights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'yes'}});
+            setSelectedRecommedYn("Y");
+            navigate('/createplan/y/inputweights', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn:'Y'}});
         }
     }
 

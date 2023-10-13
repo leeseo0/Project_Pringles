@@ -25,6 +25,7 @@ import ChoiceTrans from "./pages/createplan/ChoiceTrans";
 import UserinfoModify from "./pages/mypage/UserinfoModify";
 import ShowSelection from "./pages/createplan/ShowSelection";
 import InputWeight from "./pages/createplan/recommendYes/InputWeight";
+import PlanDetail from "./pages/mypage/PlanDetail";
 
 
 function App() {
@@ -60,8 +61,9 @@ function App() {
             <Route path="/createplan/y/choicetransportation" element={<ChoiceTrans />} />
             <Route path="/createplan/n/choicetransportation" element={<ChoiceTrans />} />
             <Route path="/createplan/showselection" element={<ShowSelection />} />
-            <Route path="/mypage/modify" element={<UserinfoModify />} />
+            <Route path="/mypage/modify/:userid" element={<UserinfoModify />} />
             <Route path="/mypage/planlist" element={<PlanList />} />
+            <Route path="/mypage/planlist/:schedule_id" element={<PlanDetail />} />
             <Route path="/mypage/record" element={<Record />} />
             <Route path="/mypage/bookmark" element={<Bookmark />} />
             <Route path="/mypage/review" element={<Review />} />

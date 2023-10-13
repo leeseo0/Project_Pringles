@@ -10,6 +10,7 @@ function QNA() {
         async function getQuestionList() {
             try {
                 const result = await axios.get("http://localhost:8080/qna");
+                console.log(result)
                 setQuestionList(result.data);
             } catch(error) {
                 console.log(error);
@@ -26,7 +27,7 @@ function QNA() {
                     <tr>
                         <th>No</th>
                         <th>제목</th>
-                        <th>작성시간</th>
+                        <th>작성일시</th>
                     </tr>
                 </thead>
                 <tbody>

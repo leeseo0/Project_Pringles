@@ -4,21 +4,26 @@ function ShowSelection() {
 
     // 선택한 숙소 & 관광지 & 교통수단 정보
     const location = useLocation();
-    const {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedTrans, selectedRecommedYn} = location.state;
+    const {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedTrans, selectedRecommedYn, inputPriceWeight, inputRatingWeight, inputReviewWeight} = location.state;
     // const selectedStartDate = location.state.startDate;
     // const selectedEndDate = location.state.endDate;
     // const selectedHostels = location.state.selectedHostels;
     // const selectedSights = location.state.selectedSights;
     // const selectedTrans = location.state.selectedTrans;
-    console.log(selectedHostels)
-    console.log(selectedSights)
-    console.log(selectedTrans)
+    console.log('시작일: ', selectedStartDate)
+    console.log('숙소:', selectedHostels)
+    console.log('관광지:', selectedSights)
+    console.log('가격 가중치: ', inputPriceWeight)
+    console.log('교통수단', selectedTrans)
     
     const selectedTotal = {
         hostelName: selectedHostels.map((hostel) => hostel.name),
         sightName: selectedSights.map((sight) => sight.name),
         trans: selectedTrans,
     };
+
+    console.log('토탈:', selectedTotal.hostelName);
+    console.log('함수:', selectedHostels.map((hostel) => hostel.name))
 
     return (
         <>

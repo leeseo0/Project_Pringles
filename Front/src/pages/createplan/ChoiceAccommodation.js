@@ -6,9 +6,18 @@ function ChoiceAccommodation() {
     const [hostels, setHostels] = useState([]);
     const [selectedHostels, setSelectedHostels] = useState([]);   // 선택된 숙소 저장
     const [currentPage, setCurrentPage] = useState(0);   // 현재 페이지
-    const [pageSize, setPageSize] = useState(15);   // 페이지 크기
+    const [pageSize] = useState(15);   // 페이지 크기
     const [totalPages, setTotalPages] = useState(0);   // 전체 페이지 수
     const navigate = useNavigate();
+
+    // 선택한 날짜 정보 읽어오기
+    const location = useLocation();
+    // const {selectedStartDate, selectedEndDate} = location.state;
+    const selectedStartDate = location.state.startDate;
+    const selectedEndDate = location.state.endDate;
+    // 숙소가 잘 선택되는지, 날짜가 잘 읽혀지는지 확인
+    console.log('숙소:', selectedHostels)
+    console.log('시작일:', selectedStartDate)
 
     // 숙소 목록 호출
     useEffect(() => {
@@ -26,13 +35,6 @@ function ChoiceAccommodation() {
             console.error('Error fetching data :', error)
         });
     }, [currentPage, pageSize]);
-
-    // 선택한 날짜 정보 읽어오기
-    const location = useLocation();
-    // const {selectedStartDate, selectedEndDate} = location.state;
-    const selectedStartDate = location.state.startDate;
-    const selectedEndDate = location.state.endDate;
-
 
     // 페이지 번호 목록 생성
     const pageNumbers = [];
@@ -72,27 +74,23 @@ function ChoiceAccommodation() {
     }
     
     
-    // 숙소가 잘 선택되는지 확인
-    console.log(selectedHostels)
-    console.log(selectedStartDate)
-
     return (
         <div>
-            <h2><b>숙소를 선택하세요</b></h2>
-            <p><b>추가작업)</b> 선택여부, 클릭(선택)한 숙소 DB에 저장되도록, 페이지 번호로 뜨게끔 pagination 작업</p>
+            <h3><b>숙소를 선택하세요</b></h3>
+            <p><b>추가작업)</b> 선택여부, 클릭(선택)한 숙소 DB에 저장되도록</p>
             <br/>
             <div>
                 {hostels.map((hostel) => {
                     return (
-                        <ul key={hostel.hostel_id}>
-                            <li>
-                                <h4>Name: {hostel.name}</h4>
+                        <div key={hostel.hostel_id} style={{display:'flex', alignItems:'center'}}>
+                            <div>
+                                <h5><b>Name: {hostel.name}</b></h5>
                                 <p>Type: {hostel.type}</p>
                                 <p>Address: {hostel.address1}</p>
                                 <p>⭐: {hostel.rating}</p>
-                                <button onClick={() => handleHostelSelect(hostel)}>선택</button>
-                            </li>
-                        </ul>
+                            </div>
+                            <button style={{borderRadius:'5px', borderColor:'lightgray', marginLeft:'10px'}} className='btn btn-outline-secondary' onClick={() => handleHostelSelect(hostel)}>+</button>
+                        </div>
                     )
                 })}
             </div>
@@ -118,7 +116,7 @@ function ChoiceAccommodation() {
                 ))}
             </div> */}
             <hr/>
-            <div style={{display:'flex', justifyContent:'flex-end'}}>
+            <div className="container" style={{display:'flex', justifyContent:'flex-end'}}>
                 <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
             </div>
         </div>
