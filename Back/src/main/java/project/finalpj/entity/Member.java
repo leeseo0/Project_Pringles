@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +27,9 @@ public class Member { // 회원정보 저장 Entity
 
     @Column(unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)   // member:schedule = 1:n
+    private List<Schedule> scheduleList;
 
 
 }

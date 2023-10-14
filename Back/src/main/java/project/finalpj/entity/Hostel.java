@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Table(name = "jeju_hostel")
+@Table(name = "planhostel")
 @ToString
 public class Hostel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hostel_id;
+    private Long hostelid;
 
     @Column
     private String name;
@@ -23,12 +23,13 @@ public class Hostel {
     private String tel;
     private String homepage;
     private String checktime;
+    private String petinfo;
+    private String placeinfo;
     private double rating;
     private int review;
-    private double latitude;
-    private double longitude;
     private String theme;
     private int themenum;
     private String firstimage;
-    private String secondimage;
+    private double latitude;
+    private double longitude;
 }
