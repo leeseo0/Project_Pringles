@@ -7,23 +7,25 @@ function ChoiceTrans() {
     const [selectedTrans, setSelectedTrans] = useState("");
     const [title, setTitle] = useState("");
 
-    const [errorMessage, setErrorMessage] = useState([]);
     const navigate = useNavigate();
 
     // 선택한 날짜, 숙소, 관광지 정보
     const location = useLocation();
-    const {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedRecommedYn, inputPriceWeight, inputRatingWeight, inputReviewWeight} = location.state;
+    const {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn, selectedSights} = location.state;
     // const selectedStartDate = location.state.startDate;
     // const selectedEndDate = location.state.endDate;
     // const selectedHostels = location.state.selectedHostels;
     // const selectedSights = location.state.selectedSights;
-    console.log('숙소:', selectedHostels)
     console.log('숙소이름:', selectedHostels.map((hostel) => hostel.name))
     console.log('관광지:', selectedSights)
-    console.log('시작일:', selectedStartDate.toLocaleDateString())
-    console.log('시작일:', moment(selectedStartDate).format("YYYY. MM. DD"))
+    console.log('시작일:', selectedStartDate)
     console.log('추천여부:', selectedRecommedYn)
-    console.log('리뷰 가중치:', inputRatingWeight)
+
+    // 날짜 차이 일수 계산
+    let diff = Math.abs(selectedEndDate - selectedStartDate)
+    diff = Math.ceil(diff / (1000 * 60 * 60 * 24))
+    console.log('days:', diff)
+    console.log('days:', diff+1)
 
     // 교통수단 선택 후 호출될 함수
     const handleTransSelect = (trans) => {
@@ -44,20 +46,24 @@ function ChoiceTrans() {
         try {
             const result = await axios.post(`http://localhost:8080/createplan/schedule/${localStorage.getItem("userid")}`, {
                 title: title,
-                // startdate: selectedStartDate,
-                startdate: moment(selectedStartDate).format("YYYY-MM-DD"),
-                enddate: selectedEndDate,
-                accommodation: selectedHostels.map((hostel) => hostel.name),
-                recommendyn: selectedRecommedYn,
-                priceweight: inputPriceWeight,
-                ratingweight: inputRatingWeight,
-                reviewweight: inputReviewWeight,
-                sights: selectedSights.map((sights) => sights.name),
+                startDate: selectedStartDate,
+                // startdate: moment(selectedStartDate).format("YYYY-MM-DD"),
+                endDate: selectedEndDate,
+                days: diff+1,
+                // accommodation: selectedHostels.map((hostel) => hostel.name),
+                accommodation: JSON.stringify(selectedHostels.map((hostel) => hostel.name)),
+                recommendYN: selectedRecommedYn,
+                // priceweight: inputPriceWeight,
+                // ratingweight: inputRatingWeight,
+                // reviewweight: inputReviewWeight,
+                // sights: selectedSights.map((sights) => sights.name),
+                sights: JSON.stringify(selectedSights.map((sights) => sights.name)),
                 transportation: selectedTrans
             })
             if (result.status === 200) {
                 console.log(result);
-                navigate("/createplan/showselection")
+                navigate("/mypage/planlist")
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -67,7 +73,7 @@ function ChoiceTrans() {
 
     // 페이지 이동
     const moveNextClick = () => {
-        navigate('/createplan/showselection', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedTrans}})
+        navigate('/createplan/showselection', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn : 'N', selectedSights, selectedTrans, title}})
     }
 
     const transButtonStyle = {
@@ -95,7 +101,7 @@ function ChoiceTrans() {
             </div>
 
             {/* 교통수단 선택 버튼 */}
-            <div className="border-bottom" style={{display:'flex', justifyContent:'center'}}>
+            <div style={{display:'flex', justifyContent:'center'}}>
                 <div>
                     <button onClick={() => handleTransSelect("대중교통")} className="btn btn-outline-secondary" style={transButtonStyle}>
                     <img src="https://png.pngtree.com/png-vector/20230407/ourmid/pngtree-public-transport-line-icon-vector-png-image_6684263.png" alt="대중교통" style={iconStyle}/>
@@ -110,13 +116,18 @@ function ChoiceTrans() {
                 </div>
             </div>
             <br/>
+            <div className="border-bottom" style={{display:'flex', justifyContent:'center'}}>
+                <h5><b>선택한 교통수단 : "{selectedTrans}"</b></h5>
+            </div>
+            
+            <br/>
 
             {/* 일정 제목 입력 */}
             <div className="container my-3">
                 <form>
                     <h4><b>일정 제목을 입력하세요</b></h4>
                     <label htmlFor="title" className="form-label"></label>
-                    <input onChange={titleOnChange} type="text" className="form-control" value={title} id="title" name="title" style={{width:'80%'}}></input>
+                    <input onChange={titleOnChange} type="text" className="form-control" value={title} id="title" name="title" style={{width:'90%'}}></input>
                 </form>
             </div>
             

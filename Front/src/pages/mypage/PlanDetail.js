@@ -9,7 +9,7 @@ function PlanDetail() {
     useEffect(() => {
         async function getPlan() {
             try {
-                const result = await axios.get(`http://localhost:8080/mypage/planlist/${params.schedule_id}`);
+                const result = await axios.get(`http://localhost:8080/mypage/planlist/plan/${params.schedule_id}`);
                 console.log(result);
                 setSchedule(result.data);
             } catch (error) {

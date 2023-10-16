@@ -4,18 +4,13 @@ function ShowSelection() {
 
     // 선택한 숙소 & 관광지 & 교통수단 정보
     const location = useLocation();
-    const {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedTrans, selectedRecommedYn, inputPriceWeight, inputRatingWeight, inputReviewWeight} = location.state;
+    const {selectedStartDate, selectedEndDate, selectedHostels, selectedSights, selectedTrans, selectedRecommedYn, inputPriceWeight, inputRatingWeight, inputReviewWeight, title} = location.state;
     // const selectedStartDate = location.state.startDate;
     // const selectedEndDate = location.state.endDate;
     // const selectedHostels = location.state.selectedHostels;
     // const selectedSights = location.state.selectedSights;
     // const selectedTrans = location.state.selectedTrans;
-    console.log('시작일: ', selectedStartDate)
-    console.log('숙소:', selectedHostels)
-    console.log('관광지:', selectedSights)
-    console.log('가격 가중치: ', inputPriceWeight)
-    console.log('교통수단', selectedTrans)
-    
+       
     const selectedTotal = {
         hostelName: selectedHostels.map((hostel) => hostel.name),
         sightName: selectedSights.map((sight) => sight.name),
@@ -27,9 +22,23 @@ function ShowSelection() {
 
     return (
         <>
+        {/* 일정제목 */}
+            <div>
+                <h5>일정제목 : {title}</h5>
+            </div>
+        {/* 추천여부 */}
+            <div>
+                <h5>추천여부 : {selectedRecommedYn}</h5>
+            </div>
+        {/* 가중치 */}
+            <div>
+                <h5>가격 가중치 : {inputPriceWeight}</h5>
+                <h5>별점 가중치 : {inputRatingWeight}</h5>
+                <h5>리뷰 가중치 : {inputReviewWeight}</h5>
+            </div>
         {/* 일정 */}
             <div>
-                <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
+                <h5>시작일 : {selectedStartDate}</h5>
                 <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
             </div>
         {/* 숙소 */}
