@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -19,16 +18,18 @@ public class Schedule {   // 만든 일정 저장
 
     private String title;   // 일정 제목
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Integer days;   // 일정 일수 (종료일-시작일)
+
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "startdate")
     private LocalDate startDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "enddate")
     private LocalDate endDate;
 
-    @ElementCollection
-    private List<String> accommodation;   // 선택한 숙소
+    @Column(columnDefinition = "TEXT")
+    private String accommodation;   // 선택한 숙소
 
     private String recommendYN;   // 일정 추천 여부
 
@@ -41,8 +42,8 @@ public class Schedule {   // 만든 일정 저장
     @Column(name = "reviewweight")
     private Double reviewWeight;   // 리뷰 가중치
 
-    @ElementCollection
-    private List<String> sights;   // 선택한 관광지
+    @Column(columnDefinition = "TEXT")
+    private String sights;   // 선택한 관광지
 
     private String transportation;   // 선택한 교통수단
 

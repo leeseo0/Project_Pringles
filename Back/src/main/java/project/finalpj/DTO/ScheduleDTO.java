@@ -5,21 +5,21 @@ import lombok.Setter;
 import project.finalpj.entity.Schedule;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
 public class ScheduleDTO {
     private Long schedule_id;
     private String title;
+    private Integer days;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<String> accommodation;
+    private String accommodation;
     private String recommendYN;
     private Double priceWeight;
     private Double ratingWeight;
     private Double reviewWeight;
-    private List<String> sights;
+    private String sights;
     private String transportation;
 
     public static ScheduleDTO fromSchedule(Schedule schedule) {

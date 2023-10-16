@@ -11,8 +11,6 @@ import project.finalpj.repository.MemberRepository;
 import project.finalpj.repository.ScheduleRepository;
 import project.finalpj.service.ScheduleService;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,46 +33,31 @@ public class ScheduleController {
     // 일정 만들기 DB 저장
     @PostMapping(value = "/createplan/schedule/{userid}")
     public ResponseEntity<String> scheduleSubmit(@PathVariable("userid") String userid, @RequestBody ScheduleDTO scheduleDTO) {
+        // 값이 들어오는지 확인
         System.out.println("들어와주라");
+        System.out.println(scheduleDTO.getStartDate());
+        System.out.println(scheduleDTO.getEndDate());
+        System.out.println(scheduleDTO.getDays());
+        System.out.println(scheduleDTO.getAccommodation());
+        System.out.println(scheduleDTO.getRecommendYN());
+        System.out.println(scheduleDTO.getSights());
+        System.out.println(scheduleDTO.getPriceWeight());
+        System.out.println(scheduleDTO.getTransportation());
+        System.out.println(scheduleDTO.getTitle());
+        System.out.println(scheduleDTO);
 
-        // startDate 값 없으면 badRequest 응답 반환
-        if (scheduleDTO.getStartDate() == null) {
-            return ResponseEntity.badRequest().body("startDate 값 없음");
-        }
+//        // startDate 값 없으면 badRequest 응답 반환
+//        if (scheduleDTO.getStartDate() == null) {
+//            return ResponseEntity.badRequest().body("startDate 값 없음");
+//        }
 
         Member member = this.memberRepository.getReferenceById(userid);
         Schedule schedule = new Schedule();
 
-//            // 변환 코드 추가
-//            String startDateStr = map.get("startdate");
-//            String endDateStr = map.get("enddate");
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            LocalDate startDate = LocalDate.parse(startDateStr, formatter);
-//            LocalDate endDate = LocalDate.parse(endDateStr, formatter);
-//            Double priceweight = Double.parseDouble(map.get("priceweight"));
-//            Double ratingweight = Double.parseDouble(map.get("ratingweight"));
-//            Double reviewweight = Double.parseDouble(map.get("reviewweight"));
-
-//            schedule.setStartDate(startDate);
-//            schedule.setEndDate(endDate);
-//            schedule.setAccommodation(map.get("accommodation"));
-//            schedule.setRecommendYN(map.get("recommendyn"));
-//            schedule.setPriceWeight(priceweight);
-//            schedule.setRatingWeight(ratingweight);
-//            schedule.setReviewWeight(reviewweight);
-//            schedule.setSights(map.get("sights"));
-//            schedule.setTransportation(map.get("transportation"));
-//            schedule.setMember(member);
-//            scheduleRepository.save(schedule);
-
-        String startDateStr = scheduleDTO.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String endDateStr = scheduleDTO.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
         schedule.setTitle(scheduleDTO.getTitle());
-        schedule.setStartDate(LocalDate.parse(startDateStr));
-        schedule.setEndDate(LocalDate.parse(endDateStr));
-//        schedule.setStartDate(scheduleDTO.getStartDate());
-//        schedule.setEndDate(scheduleDTO.getEndDate());
+        schedule.setStartDate(scheduleDTO.getStartDate());
+        schedule.setEndDate(scheduleDTO.getEndDate());
+        schedule.setDays(scheduleDTO.getDays());
         schedule.setAccommodation(scheduleDTO.getAccommodation());
         schedule.setRecommendYN(scheduleDTO.getRecommendYN());
         schedule.setPriceWeight(scheduleDTO.getPriceWeight());
@@ -89,9 +72,10 @@ public class ScheduleController {
     }
 
     // 생성된 일정 리스트 호출
-    @GetMapping("/mypage/planlist")
-    public List<ScheduleDTO> getScheduleList() {
-        List<Schedule> schedules = scheduleRepository.findAll();
+    @GetMapping("/mypage/planlist/{userid}")
+    public List<ScheduleDTO> getScheduleList(@PathVariable("userid") String userid) {
+        System.out.println("전달되는거니");
+        List<Schedule> schedules = scheduleRepository.findByMemberUserid(userid);
         return schedules.stream().map(ScheduleDTO::fromSchedule).collect(Collectors.toList());
     }
 //    public ResponseEntity<List<Schedule>> getAllSchedules() {
@@ -100,7 +84,7 @@ public class ScheduleController {
 //    }
 
     // 일정 상세 페이지
-    @GetMapping(value = "/mypage/planlist/{schedule_id}")
+    @GetMapping(value = "/mypage/planlist/plan/{schedule_id}")
     public ResponseEntity<?> getScheduleDetail(@PathVariable("schedule_id") Long schedule_id) {
         System.out.println("들어오나용");
         Optional<Schedule> scheduleOptional = scheduleRepository.findById(schedule_id);
