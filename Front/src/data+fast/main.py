@@ -113,8 +113,8 @@ def get_recommendschedule():
 
     schedule_lists = []
     for row in schedules:
-        schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, priceprior, ratingprior, reviewprior, sights, transportation, member_userid = row
-        schedule_lists.append((schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, priceprior, ratingprior, reviewprior, sights, transportation, member_userid))
+        schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, sights, transportation, member_userid = row
+        schedule_lists.append((schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, sights, transportation, member_userid))
     
     schedule_sight = pd.DataFrame.from_dict(schedule_sights)
     schedule_hostel = pd.DataFrame.from_dict(schedule_hostels)
@@ -124,7 +124,7 @@ def get_recommendschedule():
 
     hostel_names = ast.literal_eval(user_schedule[5])
     select_hostel = schedule_hostel[schedule_hostel[1].isin(hostel_names)]
-    sight_names = ast.literal_eval(user_schedule[13])
+    sight_names = ast.literal_eval(user_schedule[10])
     select_sights = schedule_sight[schedule_sight[1].isin(sight_names)]
     
     jeju_airport = (33.5070537, 126.492776)
