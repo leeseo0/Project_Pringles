@@ -39,7 +39,7 @@ plan_sights = cursor.fetchall()
 cursor.execute("SELECT hostelid, name, type, address1, address2, tel, homepage, checktime, petinfo, placeinfo, rating, review, theme, themenum, firstimage, latitude, longitude FROM planhostel")
 hostels = cursor.fetchall()
 
-cursor.execute("SELECT schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, priceprior, ratingprior, reviewprior, sights, transportation, member_userid FROM schedule")
+cursor.execute("SELECT schedule_id, title, startdate, enddate, days, accommodation, recommendyn, priceweight, ratingweight, reviewweight, sights, transportation, member_userid FROM schedule")
 schedules = cursor.fetchall()
 
 class WeightData(BaseModel):
