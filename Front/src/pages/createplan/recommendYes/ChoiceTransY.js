@@ -27,9 +27,9 @@ function ChoiceTrans() {
     
     // 날짜 차이 일수 계산
     let diff = Math.abs(selectedEndDate - selectedStartDate)
-    diff = Math.ceil(diff / (1000 * 60 * 60 * 24))
+    diff = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1
     console.log('days:', diff)
-    console.log('days:', diff+1)
+    console.log('days:', diff)
 
     // 교통수단 선택 후 호출될 함수
     const handleTransSelect = (trans) => {
@@ -53,7 +53,7 @@ function ChoiceTrans() {
                 startDate: selectedStartDate,
                 // startdate: moment(selectedStartDate).format("YYYY-MM-DD"),
                 endDate: selectedEndDate,
-                days: diff+1,
+                days: diff,
                 // accommodation: selectedHostels.map((hostel) => hostel.name),
                 accommodation: JSON.stringify(selectedHostels.map((hostel) => hostel.name)),
                 recommendYN: selectedRecommedYn,
@@ -66,7 +66,7 @@ function ChoiceTrans() {
             })
             if (result.status === 200) {
                 console.log(result);
-                navigate("/mypage/planlist")
+                navigate("/createplan/showselection", {state: {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn : 'Y', inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title}})
                 window.location.reload();
             }
         } catch (error) {
@@ -76,9 +76,9 @@ function ChoiceTrans() {
     }
 
     // 페이지 이동
-    const moveNextClick = () => {
-        navigate('/createplan/showselection', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn : 'Y', inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title}})
-    }
+    // const moveNextClick = () => {
+    //     navigate('/createplan/showselection', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn : 'Y', inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title}})
+    // }
 
     const transButtonStyle = {
         // backgroundColor: "transparent",
@@ -135,9 +135,9 @@ function ChoiceTrans() {
             </div>
             
             {/* 다음 버튼 - 임시 */}
-            <div style={{display:'flex', justifyContent:'flex-end'}}>
+            {/* <div style={{display:'flex', justifyContent:'flex-end'}}>
                 <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
-            </div>
+            </div> */}
 
             {/* 저장 버튼 */}
             {/* 취소 - 현재 상태, 확인 - 선택된 정보들 DB에 저장 및 추천된 일정 구현 */}

@@ -33,6 +33,8 @@ function ChoiceSight() {
         axios.post("http://localhost:8000/recommendations",{priceweight:parseFloat(inputPriceWeight),ratingweight:parseFloat(inputRatingWeight),reviewweight:parseFloat(inputReviewWeight), pagenum:currentPage})
             .then((response) => {  
                 const data = response.data.destinations
+                console.log('senddata')
+                console.log(response.data)
                 setSightList(data)
                 setTotalPages(response.data.total_num)
             })
