@@ -1,8 +1,7 @@
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -19,51 +18,36 @@ const MapContainer = styled.div`
   width: 600px; /* 지도 컨테이너의 너비를 조절하여 원하는 크기로 설정 */
 `;
 
-function PlanDetail() {
-    const [schedule, setSchedule] = useState([]);
-    const params = useParams();
+function ShowSelectionNo() {
+    const location = useLocation();
+    const {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn, selectedSights, selectedTrans, title} = location.state;
+    console.log('show')
+    console.log(diff)
+
+    const [scheduleList, setScheduleList] = useState([]);
     const mapRef = useRef(null);
 
     useEffect(() => {
-        async function getPlan() {
-            try {
-                const result = await axios.get(`http://localhost:8080/mypage/planlist/plan/${params.schedule_id}`);
-                const resultdata = result.data;
-                    console.log(resultdata)
-
-                const dataToSend = {
-                    schedule_id: resultdata.schedule_id,
-                    title: resultdata.title,
-                    startdate: resultdata.startDate,
-                    enddate: resultdata.endDate,
-                    days: resultdata.days,
-                    accommodation: JSON.stringify(resultdata.accommodation),
-                    recommendyn: resultdata.recommendYN,
-                    priceweight: resultdata.priceWeight,
-                    ratingweight: resultdata.ratingWeight,
-                    reviewweight: resultdata.reviewWeight,
-                    sights: JSON.stringify(resultdata.sights),
-                    transportation: resultdata.transportation,
-                };
-
-                try {
-                    const fastresult = await axios.post("http://localhost:8000/scheduleDetail", dataToSend);
-                        const fastresultdata = fastresult.data;
-                        console.log("fastresultdata");
-                        console.log(fastresultdata);
-                    setSchedule(fastresultdata);
-                } catch (error) {
-                    console.log("result data error", error);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getPlan();
-    }, [params.schedule_id])
-
-    console.log(params)
-
+        axios.post('http://localhost:8000/recommendscheduleNo',{
+            title:title,
+            startdate:selectedStartDate,
+            enddate:selectedEndDate,
+            days:parseInt(diff),
+            accommodation:JSON.stringify(selectedHostels),
+            recommendyn:selectedRecommedYn,
+            sights:JSON.stringify(selectedSights),
+            transportation:selectedTrans})
+            .then(response => {
+                const data = response.data;
+                setScheduleList(data);
+                // 응답 처리
+                console.log(response.data);
+            })
+            .catch(error => {
+                // 오류 처리
+                console.error(error);
+            });
+    }, []); 
 
     useEffect(() => {
         // 카카오맵 API 로드
@@ -79,7 +63,7 @@ function PlanDetail() {
     }, []);
 
     // 일정을 'day' 기준으로 그룹화
-    const groupedSchedule = schedule.reduce((groups, plan) => {
+    const groupedSchedule = scheduleList.reduce((groups, plan) => {
         const day = plan.day;
         if (!groups[day]) {
             groups[day] = [];
@@ -87,9 +71,7 @@ function PlanDetail() {
         groups[day].push(plan);
         return groups;
     }, {});
-    
-    const scheduleColors = ["#f44336", "#ff9800", "#4caf50", "#00bcd4", "#9c27b0"];
-    let colorIndex = 0;
+
 
     const initializeMap = () => {
         const container = document.getElementById("map");
@@ -98,62 +80,35 @@ function PlanDetail() {
             level: 10, // 초기 지도 확대 수준
         };
         mapRef.current = new window.kakao.maps.Map(container, options);
-        const dayColors = {};
 
         // 그룹화된 일정별 관광지를 선으로 연결
         Object.keys(groupedSchedule).forEach((day) => {
             const daySchedule = groupedSchedule[day];
-            
+    
             let prevMarker = null; // 이전 마커를 추적하기 위한 변수
-            
-            // 현재 색상을 가져오고 다음 색상으로 이동
-            const currentColor = scheduleColors[colorIndex];
-            colorIndex = (colorIndex + 1) % scheduleColors.length;
-
-            dayColors[day] = currentColor;
-
-            // 각 일자에 대한 색상을 랜덤하게 생성
-            // dayColors[day] = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
     
             daySchedule.forEach((plan) => {
                 const markerPosition = new window.kakao.maps.LatLng(plan.sight_latitude, plan.sight_longitude);
                 const marker = new window.kakao.maps.Marker({ position: markerPosition });
-                
-                // 시작 위치에 대한 사용자 정의 마커 이미지
-                const startMarkerImage = new window.kakao.maps.MarkerImage(
-                    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png', // 사용자 정의 마커 이미지의 URL로 대체
-                    new window.kakao.maps.Size(30, 30), // 사용자 정의 마커의 크기를 설정합니다.
-                );
-
-                // 시작 위치의 위도와 경도 가져오기
-                const startLatitude = parseFloat(plan.start_latitude);
-                const startLongitude = parseFloat(plan.start_longitude);
+                const startMarkerPosition = new window.kakao.maps.LatLng(plan.startLatitude, plan.startLongitude);
+                const startMarker = new window.kakao.maps.Marker({ position: startMarkerPosition });
     
-                // 시작 위치에 마커 생성
-                const startMarkerPosition = new window.kakao.maps.LatLng(startLatitude, startLongitude);
-                const startMarker = new window.kakao.maps.Marker({ position: startMarkerPosition, image:startMarkerImage });
-    
-                // // 번호를 표시하는 커스텀 오버레이 추가
-                // const customOverlay = new window.kakao.maps.CustomOverlay({
-                //     content: `<div class="custom-overlay">${day + 1}</div>`,
-                //     position: startMarkerPosition,
-                // });
-                // customOverlay.setMap(mapRef.current);
-                
                 // 마커를 지도에 추가
                 marker.setMap(mapRef.current);
                 startMarker.setMap(mapRef.current);
+
     
                 // 선을 그리기 위한 좌표 설정
                 if (prevMarker) {
-                    const linePath = [prevMarker.getPosition(), startMarkerPosition, markerPosition];
+                    const linePath = [prevMarker.getPosition(), markerPosition];
                     const polyline = new window.kakao.maps.Polyline({
                         path: linePath,
-                        strokeWeight: 3,
-                        strokeColor: dayColors[day], // 해당 일자의 색상을 할당
+                        strokeWeight: 2,
+                        strokeColor: 'red', // 선의 색상 설정
                     });
                     polyline.setMap(mapRef.current);
                 }
+
     
                 // 마커 클릭 시 팝업을 표시할 수 있음
                 window.kakao.maps.event.addListener(marker, 'click', () => {
@@ -165,13 +120,14 @@ function PlanDetail() {
         });
     }; 
 
+
     return (
         <div className="container my-3">
             <h2><b>일정 생성</b></h2>
             <br />
             <Container>
                 <DataContainer>
-                    {Object.keys(groupedSchedule).map((day, index) => (
+                {Object.keys(groupedSchedule).map((day, index) => (
                         <div key={index}>
                             <h3><b>Day {day}</b></h3>
                             <div className="row">
@@ -180,7 +136,7 @@ function PlanDetail() {
                                     <div key={planIndex} className="card mb-4" style={{ marginBottom: '10px',maxHeight: '300px' }}>
                                         <div className="row">
                                             <div className="col-md-4">
-                                                <img src={plan.firstimage} className="card-img" alt={plan.name} />
+                                                <img src={plan.firstimage} className="card-img" alt={plan.name}/>
                                             </div>
                                             <div className="col-md-8">
                                                 <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -205,7 +161,7 @@ function PlanDetail() {
                 </MapContainer>
             </Container>
         </div>
-        );
-    }
+    );
+}
 
-export default PlanDetail;
+export default ShowSelectionNo;
