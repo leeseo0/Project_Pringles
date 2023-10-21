@@ -5,6 +5,29 @@ import SightMaps from "../../../components/SightMaps";
 import styled from "styled-components";
 import "../../../style/Paging.css";
 
+function SightBoard({ sights, onSightDeselect }) {
+    return (
+        <div className="sight-board" style={{marginBottom:"5px"}}>
+            <div className="card" style={smallcardStyle}>
+            <div className="header" style={headerStyle}>
+                <br />
+                <p style={{ textAlign: 'center' }}><b>선택한 관광지</b></p>
+            </div>
+                <div className="card-body">
+                <ul>
+                    {sights.map((sight) => (
+                    <li key={sight.spotid}>
+                        {sight.name}
+                        <button style={removeButtonStyle} onClick={() => onSightDeselect(sight)}>제거</button>
+                    </li>
+                    ))}
+                </ul>
+                </div>
+            </div>
+            </div>
+    );
+  }
+
 function ChoiceSight() {
     const [sights, setSights] = useState([]);
     const [selectedSights, setSelectedSights] = useState([]);
@@ -23,6 +46,15 @@ function ChoiceSight() {
     console.log('추천여부:', selectedRecommedYn)
     console.log('종료일:', selectedEndDate)
     console.log('관광지:', selectedSights)
+
+    const [sightList, setSightList] = useState([]);
+
+    // 날짜 차이 일수 계산
+    let diff = Math.abs(selectedEndDate - selectedStartDate)
+    diff = Math.ceil(diff / (1000 * 60 * 60 * 24))
+    let days = diff + 1
+    console.log('diff:', diff)
+    console.log('days:', days)
 
     // 관광지 목록 호출
     useEffect(() => {
@@ -73,7 +105,11 @@ function ChoiceSight() {
 
     // 다음 페이지 이동 및 선택한 날짜, 숙소, 추천여부, 관광지 정보 전달
     const moveNextClick = () => {
+        if((3*days-2) > selectedSights.length || selectedSights.length > 3*days) {
+            alert(`선택할 수 있는 관광지는 ${days*3 -2} ~ ${days*3}개까지 입니다.`)
+        } else {
         navigate('/createplan/n/choicetransportation', { state: { selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn: 'N', selectedSights } })
+        }
     }
 
     // 선택 버튼 클릭 시 호출되는 함수
@@ -81,7 +117,18 @@ function ChoiceSight() {
         setSelectedSights([...selectedSights, sight]);
     }
 
-
+    // 관광지 제거 함수
+    const handleSightDeselect = (sight) => {
+        const updatedSelectedSights = [...selectedSights];
+        const index = updatedSelectedSights.findIndex((selected) => selected.spotid === sight.spotid);
+        if (index !== -1) {
+            updatedSelectedSights.splice(index, 1);
+            setSelectedSights(updatedSelectedSights);
+        }
+    }
+    console.log('확인')
+    console.log(selectedSights)
+    console.log(sightList)
 
     return (
         <div>
@@ -140,6 +187,7 @@ function ChoiceSight() {
 
                         <div className="col-md-7">
                             <ListMapWrapper>
+                                <SightBoard sights={selectedSights} onSightDeselect={handleSightDeselect} />
                                 <SightMaps sights={sights} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
                             </ListMapWrapper>
                         </div>
@@ -207,4 +255,27 @@ const cardStyle = {
 
   const bodyStyle = {
     padding: '20px',
+  };
+
+  const rebuttonStyle = {
+    backgroundColor: "#ff9800",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    padding: "5px 10px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  const removeButtonStyle = {
+    ...rebuttonStyle, // 공통 스타일을 불러옴
+    backgroundColor: "#ff9800", // 버튼의 개별 스타일을 정의
+    marginLeft: "2px",
+  };
+
+  const smallcardStyle = {
+    height: '85%%',
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    overflow: 'hidden',
   };

@@ -5,6 +5,29 @@ import HotelMap from "../../components/HotelMap";
 import styled from "styled-components";
 import "../../style/Paging.css";
 
+function HostelBoard({ hostels, onHostelDeselect }) {
+    return (
+        <div className="hostel-board" style={{marginBottom:"5px"}}>
+            <div className="card" style={smallcardStyle}>
+            <div className="header" style={headerStyle}>
+                <br />
+                <p style={{ textAlign: 'center' }}><b>선택한 숙소</b></p>
+            </div>
+                <div className="card-body">
+                <ul>
+                    {hostels.map((hostel) => (
+                    <li key={hostel.hostel_id}>
+                        {hostel.name}
+                        <button style={removeButtonStyle} onClick={() => onHostelDeselect(hostel)}>제거</button>
+                    </li>
+                    ))}
+                </ul>
+                </div>
+            </div>
+            </div>
+    );
+  }
+
 function ChoiceAccommodation() {
     const [hostels, setHostels] = useState([]);
     const [selectedHostels, setSelectedHostels] = useState([]);   // 선택된 숙소 저장
@@ -22,6 +45,13 @@ function ChoiceAccommodation() {
     // 숙소가 잘 선택되는지, 날짜가 잘 읽혀지는지 확인
     console.log('숙소:', selectedHostels)
     console.log('시작일:', selectedStartDate)
+
+    // 날짜 차이 일수 계산
+    let diff = Math.abs(selectedEndDate - selectedStartDate)
+    diff = Math.ceil(diff / (1000 * 60 * 60 * 24))
+    let days = diff + 1
+    console.log('diff:', diff)
+    console.log('days:', days)
 
     // 숙소 목록 호출
     useEffect(() => {
@@ -69,19 +99,36 @@ function ChoiceAccommodation() {
 
     // 다음 페이지 이동 및 선택한 날짜, 숙소 정보 전달
     const moveNextClick = () => {
-        navigate('/createplan/choicerecommedYN', {state: {selectedStartDate, selectedEndDate, selectedHostels}});
+        if (selectedHostels.length > diff) {
+            // 선택한 숙소의 개수가 diff를 초과하면 경고창 표시
+            alert(`선택할 수 있는 숙소는 ${diff}개까지입니다.`);
+        } else {
+            navigate('/createplan/choicerecommedYN', { state: { selectedStartDate, selectedEndDate, selectedHostels } });
+        }
     }
     
-    
 
-    // 선택 버튼 클릭 시 호출되는 함수
+    // 숙소 선택 함수
     const handleHostelSelect = (hostel) => {
         setSelectedHostels([...selectedHostels, hostel]);
     }
-    
+
+    // 숙소 제거 함수
+    const handleHostelDeselect = (hostel) => {
+        // 선택한 숙소를 복제하여 새로운 배열 생성
+        const updatedSelectedHostels = [...selectedHostels];
+        // 선택한 숙소에서 주어진 숙소의 index를 찾음
+        const index = updatedSelectedHostels.findIndex((selected) => selected.hostelid === hostel.hostelid);
+        // index가 -1이 아니면 해당 숙소를 배열에서 제거
+        if (index !== -1) {
+            updatedSelectedHostels.splice(index, 1);
+            // 새로운 배열로 선택한 숙소 목록을 업데이트
+            setSelectedHostels(updatedSelectedHostels);
+        }
+    }
 
     return (
-        <div>         
+        <div>       
             <div className="card" style={cardStyle}>
                 <div className="header" style={headerStyle}>
                     <br />
@@ -154,6 +201,7 @@ function ChoiceAccommodation() {
 
                         <div className="col-md-6" >
                             <ListMapWrapper>
+                                <HostelBoard hostels={selectedHostels} onHostelDeselect={handleHostelDeselect} />
                                 <HotelMap hostels={hostels} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
                             </ListMapWrapper>
                         </div> 
@@ -182,211 +230,6 @@ function ChoiceAccommodation() {
             </div>
 
         </div>
-
-
-        // <div className=" card" style={cardStyle}>         
-        //     <div className="header" style= {headerStyle}
-        //     {{
-        //             backgroundColor: '#333',
-        //             borderRadius: '6px',
-        //             color: '#fff',
-        //             padding: '5px',
-        //             textAlign: 'center',
-        //             fontSize: '14px',
-        //     }}
-        //     >
-        //         <br />
-        //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        //             <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/createplan')}>이전</button>
-        //             <h3><b>숙소를 선택하세요</b></h3>
-        //             <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
-        //         </div>
-        //     </div>
-            
-        //         <div className="body" style={{
-        //                 padding: '20px',
-        //                 border: '1px solid #ccc', // 테두리 스타일 및 색상 설정
-        //                 borderRadius: '5px',
-
-        //             }}>
-
-        //             <div className="row">
-        //                 <div className="col-md-6">
-        //                     " 검색/필터링"
-        //                 </div>
-        //                 <div className=" col-md-6">
-        //                     "사용자 선택"
-        //                 </div>
-                        
-        //             </div>    
-        //             <div className="row">
-        //                 <div className="col-md-5" style={{
-        //                      padding: '20px',
-        //                      border: '1px solid #ccc', // 테두리 스타일 및 색상 설정
-        //                      borderRadius: '5px',
-        //                      overflowY: 'auto', 
-        //                      maxHeight: '70vh', // 테두리의 모서리 둥글기 조절
-        //                 }}>
-        //                     {hostels.map((hostel) => (
-        //                         <div key={hostel.hostel_id} className="card mb-4" style={{ 
-        //                             marginTop: '10px',
-        //                             boxShadow: '0 4px 5px rgba(0, 0, 0, 0.1)',
-        //                         }}>
-        //                             <div className="card-body">
-        //                                 <div className="row">
-        //                                     <div className="col-md-4">
-        //                                         <img src={hostel.firstimage} className="card-img" alt={hostel.name} style={{
-        //                                             width: '100%',
-        //                                             height: '130px',
-        //                                         }} />
-        //                                     </div>
-        //                                     <div className="col-md-8">
-        //                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        //                                             <div>
-        //                                                 <h5 className="card-title" style={{ fontSize: '20px', fontWeight: 'bold' }}><b>{hostel.name}</b></h5>
-        //                                                 <p className="card-text" style={{ fontSize: '14px' }}>{hostel.type} ⭐{hostel.rating} ✏️{hostel.review} </p>
-        //                                                 <p className="card-text" style={{ fontSize: '14px' }}>📌 {hostel.address1}</p>
-        //                                             </div>
-        //                                             <button
-        //                                                 style={{
-        //                                                     position: 'absolute',
-        //                                                     bottom: '10px',
-        //                                                     right: '10px',
-        //                                                     borderRadius: '5px',
-        //                                                     borderColor: 'lightgray'
-        //                                                 }}
-        //                                                 className='btn btn-outline-secondary'
-        //                                                 onClick={() => handleHostelSelect(hostel)}
-        //                                             >
-        //                                                 +
-        //                                             </button>
-        //                                         </div>
-        //                                     </div>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                     ))}
-        //                 </div>
-
-        //                 <div className="col-md-7" >
-        //                     <ListMapWrapper>
-        //                         <HotelMap hostels={hostels} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
-        //                     </ListMapWrapper>
-        //                 </div> 
-        //             </div>
-
-        //             <div className="pagination-wrapper text-center">
-        //                 <ul className="pagination pagination-warning d-inline-flex">
-        //                     <li className={`page-item ${currentPage === 0 ? "disabled" : ""} ${currentPage === 0 ? "first-child" : ""}`}>
-        //                         <a className="page-link" onClick={moveToPreviousPage} disabled={currentPage === 0}>
-        //                             <i class="fa fa-angle-left">{"‹"}</i>
-        //                         </a>
-        //                     </li>
-        //                     {pageNumbers.map((page) => (
-        //                         <li key={page} className={`page-item ${page === currentPage ? "active" : ""}`}>
-        //                             <a className="page-link" onClick={() => handlePageChange(page)}>{page + 1}</a>
-        //                         </li>
-        //                     ))}
-        //                     <li className={`page-item ${currentPage === totalPages - 1 ? "disabled" : ""} ${currentPage === totalPages - 1 ? "last-child" : ""}`}>
-        //                         <a className="page-link" onClick={moveToNextPage} disabled={currentPage === totalPages - 1}>
-        //                             <i class="fa fa-angle-right">{"›"}</i>
-        //                         </a>
-        //                     </li>
-        //                 </ul>
-
-        //             </div>
-        //         </div>
-
-
-            // {/* <div className="container">
-            //     <div className="row">
-            //         <div className="col-md-5">
-            //             {hostels.map((hostel) => (
-            //                     <div key={hostel.hostel_id} className="card mb-4" style={cardStyle}>
-            //                         <div className="header" style={headerStyle} >  
-            //                             <h3>{hostel.name}</h3>
-            //                         </div>
-            //                         <div className="row">
-            //                             <div className="col-md-4">
-            //                                 <img src={hostel.firstimage} className="card-img" alt={hostel.name} style={{
-            //                                     width: '100%',
-            //                                     height: '190px',
-            //                                 }} />
-            //                             </div>
-            //                             <div className="col-md-8">
-            //                                 <div className="card-body" style=
-            //                                 {{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-            //                                 {{bodyStyle}}
-            //                                 >
-            //                                     <div>
-            //                                         <h5 className="card-title" style={{ fontSize: '20px' }}><b>{hostel.name}</b></h5>
-            //                                         <p className="card-text" style={{ fontSize: '14px' }}>{hostel.type}</p>
-            //                                         <p className="card-text" style={{ fontSize: '15px' }}>📌 {hostel.address1}</p>
-            //                                         <p className="card-text">⭐{hostel.rating} ✏️{hostel.review}</p>
-            //                                     </div>
-            //                                     <button
-            //                                         style={{
-            //                                             position: 'absolute',
-            //                                             bottom: '10px',
-            //                                             right: '10px',
-            //                                             borderRadius: '5px',
-            //                                             borderColor: 'lightgray'
-            //                                         }}
-            //                                         className='btn btn-outline-secondary'
-            //                                         onClick={() => handleHostelSelect(hostel)}
-            //                                     >
-            //                                         +
-            //                                     </button>
-            //                                 </div>
-            //                             </div>
-            //                         </div>
-            //                     </div>
-            //                 ))}
-            //             <div className="pagination-wrapper text-center">
-            //                 <ul className="pagination pagination-warning d-inline-flex">
-            //                     <li className={`page-item ${currentPage === 0 ? "disabled" : ""} ${currentPage === 0 ? "first-child" : ""}`}>
-            //                         <a className="page-link" onClick={moveToPreviousPage} disabled={currentPage === 0}>
-            //                             <i class="fa fa-angle-left">{"‹"}</i>
-            //                         </a>
-            //                     </li>
-            //                     {pageNumbers.map((page) => (
-            //                         <li key={page} className={`page-item ${page === currentPage ? "active" : ""}`}>
-            //                             <a className="page-link" onClick={() => handlePageChange(page)}>{page + 1}</a>
-            //                         </li>
-            //                     ))}
-            //                     <li className={`page-item ${currentPage === totalPages - 1 ? "disabled" : ""} ${currentPage === totalPages - 1 ? "last-child" : ""}`}>
-            //                         <a className="page-link" onClick={moveToNextPage} disabled={currentPage === totalPages - 1}>
-            //                             <i class="fa fa-angle-right">{"›"}</i>
-            //                         </a>
-            //                     </li>
-            //                 </ul>
-            //             </div>
-            //         </div>
-            //     <div className="col-md-7" >
-            //         <ListMapWrapper>
-            //             <HotelMap hostels={hostels} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
-            //         </ListMapWrapper>
-            //     </div> 
-            //     </div>
-            // </div>
-            // <div className="container" style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px'}}>
-            //     <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
-            // </div> */}
-
-        // </div>
-        // </div>
-
-
-           
-                    
-
-    
-
-
-
-
-        
-        
     );
 };
 
@@ -425,4 +268,27 @@ const cardStyle = {
 
   const bodyStyle = {
     padding: '20px',
+  };
+
+  const rebuttonStyle = {
+    backgroundColor: "#ff9800",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    padding: "5px 10px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  const removeButtonStyle = {
+    ...rebuttonStyle, // 공통 스타일을 불러옴
+    backgroundColor: "#ff9800", // 버튼의 개별 스타일을 정의
+    marginLeft: "2px",
+  };
+
+  const smallcardStyle = {
+    height: '85%%',
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    overflow: 'hidden',
   };
