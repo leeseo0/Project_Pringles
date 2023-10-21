@@ -1,8 +1,8 @@
 import  React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Input from "../../../components/Input";
-import "../../../style/WeightInput.css";
+// import Input from "../../../components/Input";
+// import "../../../style/WeightInput.css";
 import Slider, { SliderThumb, SliderValueLabelProps } from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import SelectedsightMaps from "../../../components/SelectedsightMap";
+// import SelectedsightMaps from "../../../components/SelectedsightMap";
 import "../../../style/Paging.css";
 import styled from "styled-components";
 // import React, { useState, useEffect } from "react";
@@ -60,9 +60,9 @@ function ChoiceSight() {
             const map = new window.kakao.maps.Map(container, options);
     
             sightList.forEach((spot) => {
-                if (spot[0][11] && spot[0][12]) {
+                if (spot[0][13] && spot[0][14]) {
                 // 새로운 좌표를 설정
-                const newMarkerPosition = new window.kakao.maps.LatLng(spot[0][11], spot[0][12]);
+                const newMarkerPosition = new window.kakao.maps.LatLng(spot[0][13], spot[0][14]);
                 const marker = new window.kakao.maps.Marker({
                     position: newMarkerPosition, // 새로운 좌표로 마커 생성
                 });
@@ -76,7 +76,7 @@ function ChoiceSight() {
                     </div>
                 `;
     
-                const position = new kakao.maps.LatLng(spot[0][11], spot[0][12]);
+                const position = new kakao.maps.LatLng(spot[0][13], spot[0][14]);
     
                 const customOverlay = new kakao.maps.CustomOverlay({
                     position: position,
@@ -140,9 +140,9 @@ function ChoiceSight() {
     const handleSightSelect = (sight) => {
         setSelectedSights([...selectedSights, sight]);
     }
-    
-
-    return (
+    console.log('kj')
+    console.log(sightList)
+    return (  
         <div>
             <div className="card" style={cardStyle}>
                 <div className="header" style={headerStyle}>
@@ -214,7 +214,7 @@ function ChoiceSight() {
 
                     <div className="col-md-7">
                         <ListMapWrapper>
-                            <SelectedsightMaps sightList={sightList} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
+                            <div id="map" style={{ width: '100%', height: '500px' }} sightList={sightList} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
                         </ListMapWrapper>
                     </div>
 
