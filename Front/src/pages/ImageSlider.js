@@ -97,7 +97,7 @@ const ImageSlider = () => {
           </div>
         ))}
       </Slider>
-      <div style={{marginBottom:"30px"}}></div>
+      <div style={{marginBottom:"50px"}}></div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button
           className="learn-more"
