@@ -93,14 +93,14 @@ function InputWeight() {
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/createplan')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="40" width="20" className="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" className="button">
                                 <path d="M16 37L4 20 16 3" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"
                                     stroke-linejoin="round" opacity="0.8" />
                             </svg>
                         </button>
                         <h3><b>선호도 선택해주세요</b></h3>
                         <button type="button" className="btn btn-outline-secondary" onClick={() => { moveNextClick(); sendDataToFastAPI(); }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="40" width="20" className="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" className="button">
                                 <path d="M4 37l12-17L4 3" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"
                                     stroke-linejoin="round" opacity="0.8" />
                             </svg>
@@ -119,13 +119,13 @@ function InputWeight() {
                                 <div className="card-body">
                                     <div className="messages-container">
                                         <div className="message-box left" style={leftMessageBoxStyles}>
-                                            <p> 우리 제주도 가는거 계획 짜려고하는데 </p>                           
+                                            <p> 우리 제주도 어디가지? </p>                           
                                         </div>
                                         <div className="message-box left" style={leftMessageBoxStyles}>
                                             <h4> 가격, 리뷰, 평점 </h4>      
                                         </div>
                                         <div className="message-box left" style={leftMessageBoxStyles}>
-                                            <p> 셋 중에 뭐가 중요해?</p>
+                                            <p> 셋 중 뭐가 젤 중요함?</p>
                                         </div>
 
                                     </div>
@@ -197,9 +197,9 @@ function InputWeight() {
                                     </div>
                                     
                                     <div className="message-input" style={{ ...messageInputStyles }}>
-                                        <div className="message-send" style={{ display: 'flex', border: '1px solid gray', padding: '10px', borderRadius: '10px' }}>
+                                        <div className="message-send" style={{ display: 'flex', border: '1px solid gray', padding: '10px', borderRadius: '10px',  margin: '0' }}>
                                             <p style={{ flex: 1, margin: 0 }}> 가격은 {inputPriceWeight}<br />별점은 {inputRatingWeight}<br />리뷰는 {inputReviewWeight} 이야</p>
-                                            <button type="submit" className="button-send" style={buttonSendStyles}>Send</button>
+                                            <button type="submit" className="button-send" style={buttonSendStyles } onClick={() => { moveNextClick(); sendDataToFastAPI(); }}>Send</button>
                                         </div>
                                     </div>
                                 </div>
@@ -292,6 +292,7 @@ const PrettoSlider = styled(Slider)({
     display: 'flex',
     flexDirection: 'column',
     width: '350px',
+    border: '1px solid lightgray'
   };
 
   
@@ -327,7 +328,7 @@ const PrettoSlider = styled(Slider)({
     ...messageBoxStyles,
     backgroundColor: '#f1f1f1',
     color: 'black',
-    width: '80%', // 너비 조절
+    width: '75%', // 너비 조절
     padding: '15px', // 내부 여백 조절
     fontSize: '14px', // 폰트 크기 조절
   
@@ -351,6 +352,8 @@ const PrettoSlider = styled(Slider)({
     border: 'none',
     borderRadius: '10px',
     resize: 'none',
+    margin: '0'
+    
   };
   
   const buttonSendStyles = {
@@ -362,5 +365,6 @@ const PrettoSlider = styled(Slider)({
     marginLeft: '10px',
     borderRadius: '10px',
     fontSize: '13px',
+    
   };
   
