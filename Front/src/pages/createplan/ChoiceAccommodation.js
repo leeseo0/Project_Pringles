@@ -7,18 +7,20 @@ import "../../style/Paging.css";
 
 function HostelBoard({ hostels, onHostelDeselect }) {
     return (
-        <div className="hostel-board" style={{marginBottom:"5px"}}>
+        <div className="hostel-board" style={{marginBottom:"20px"}}>
             <div className="card" style={smallcardStyle}>
-            <div className="header" style={headerStyle}>
                 <br />
-                <p style={{ textAlign: 'center' }}><b>선택한 숙소</b></p>
-            </div>
+                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택한 숙소</b></h4>
+                <hr/>
                 <div className="card-body">
                 <ul>
                     {hostels.map((hostel) => (
                     <li key={hostel.hostel_id}>
                         {hostel.name}
-                        <button style={removeButtonStyle} onClick={() => onHostelDeselect(hostel)}>제거</button>
+                        {/* <button style={removeButtonStyle} onClick={() => onHostelDeselect(hostel)}>제거</button> */}
+                        <button style={rebuttonStyle} onClick={() => onHostelDeselect(hostel)}>
+                            <svg viewBox="0 0 448 512" style={svgIconStyle}><path style={svgIconPathStyle} d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                        </button>
                     </li>
                     ))}
                 </ul>
@@ -128,20 +130,32 @@ function ChoiceAccommodation() {
     }
 
     return (
-        <div>       
+        <div>         
             <div className="card" style={cardStyle}>
                 <div className="header" style={headerStyle}>
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/createplan')}>이전</button>
+                        <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/createplan')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" 
+                                class="button">
+                            <path d="M16 37L4 20 16 3" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"
+                            stroke-linejoin="round" opacity="0.8" />
+                            </svg>
+                             </button>
                         <h3><b>숙소를 선택하세요</b></h3>
-                        <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
+                        <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" 
+                                class="button">
+                                <path d="M4 37l12-17L4 3" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"
+                                stroke-linejoin="round" opacity="0.8" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
                 <div className="body" style={bodyStyle}>
 
-                    <div className="row">
+                    {/* <div className="row">
                             <div className="col-md-6">
                                 " 검색/필터링"
                             </div>
@@ -149,11 +163,11 @@ function ChoiceAccommodation() {
                                 "사용자 선택"
                             </div>
                             
-                    </div>    
+                    </div>     */}
                     <div className="row">
                         <div className="col-md-5" style={{ 
                             overflowY: 'auto', 
-                            maxHeight: '70vh' 
+                            maxHeight: '120vh' 
                             }}>
                             {hostels.map((hostel) => (
                                 <div key={hostel.hostel_id} className="card mb-4" style={{ 
@@ -208,6 +222,11 @@ function ChoiceAccommodation() {
                     </div>
                     <div className="pagination-wrapper text-center">
                         <ul className="pagination pagination-warning d-inline-flex">
+                            <li className={`page-item ${currentPage >= 10 ? "" : "disabled"}`}>
+                                <a className="page-link" onClick={() => handlePageChange(currentPage - 10)} disabled={currentPage < 10}>
+                                    {"‹‹"}
+                                </a>
+                            </li>
                             <li className={`page-item ${currentPage === 0 ? "disabled" : ""} ${currentPage === 0 ? "first-child" : ""}`}>
                                 <a className="page-link" onClick={moveToPreviousPage} disabled={currentPage === 0}>
                                     <i class="fa fa-angle-left">{"‹"}</i>
@@ -223,17 +242,25 @@ function ChoiceAccommodation() {
                                     <i class="fa fa-angle-right">{"›"}</i>
                                 </a>
                             </li>
+                            <li className={`page-item ${currentPage <= totalPages - 11 ? "" : "disabled"}`}>
+                                <a className="page-link" onClick={() => handlePageChange(currentPage + 10)} disabled={currentPage > totalPages - 11}>
+                                    {"››"}
+                                </a>
+                            </li>
                         </ul>
-
                     </div>
+
                 </div>
             </div>
 
         </div>
+        
+        
     );
 };
 
 export default ChoiceAccommodation;
+
 
 
 const ListMapWrapper = styled.div`
@@ -243,14 +270,14 @@ const ListMapWrapper = styled.div`
   margin:0
   width: calc(100% - 45%);
   height: 70vh;
-  overflow-y: auto; /* 수직 스크롤이 필요하다면 추가 */
+//   overflow-y: auto; /* 수직 스크롤이 필요하다면 추가 */
 
 `;
 
 
 const cardStyle = {
     // width: '100%',
-    height: '85%%',
+    height: '100%',
     backgroundColor: '#fff',
     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
     borderRadius: '10px',
@@ -270,25 +297,37 @@ const cardStyle = {
     padding: '20px',
   };
 
-  const rebuttonStyle = {
-    backgroundColor: "#ff9800",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    padding: "5px 10px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  };
-
-  const removeButtonStyle = {
-    ...rebuttonStyle, // 공통 스타일을 불러옴
-    backgroundColor: "#ff9800", // 버튼의 개별 스타일을 정의
-    marginLeft: "2px",
-  };
-
   const smallcardStyle = {
     height: '85%%',
     backgroundColor: '#fff',
     borderRadius: '10px',
     overflow: 'hidden',
+    boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.1)'
+  };
+
+  const rebuttonStyle = {
+    width: '30px',
+    height: '30px',
+    borderRadius: '50%',
+    backgroundColor: '#ff9800',
+    border: 'none',
+    fontWeight: 600,
+    // display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.164)',
+    cursor: 'pointer',
+    transitionDuration: '0.3s',
+    overflow: 'hidden',
+    position: 'relative',
+    marginLeft: '5px',
+  };
+  
+  const svgIconStyle = {
+    width: '12px',
+    transitionDuration: '0.3s',
+  };
+  
+  const svgIconPathStyle = {
+    fill: 'white',
   };
