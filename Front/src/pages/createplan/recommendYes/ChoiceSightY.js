@@ -11,7 +11,7 @@ function SightBoard({ sights, onSightDeselect }) {
         <div className="sight-board" style={{marginBottom:"20px"}}>
             <div className="card" style={smallcardStyle}>
                 <br />
-                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택한 관광지</b></h4>
+                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '18px' }}><b>선택한 관광지</b></h4>
                 <hr/>                
                 <div className="card-body">
                 <ul>
@@ -233,7 +233,7 @@ function ChoiceSight() {
                     
                     {sightList.map((sight, index) => (
                         <div key={index} className="card mb-4" style={{ 
-                            marginBottom: '10px', height: '150px' ,
+                            marginBottom: '10px', height: '175px' ,
                             boxShadow: '0 4px 5px rgba(0, 0, 0, 0.1)',
                             }} >
                             <div className="row">
@@ -241,7 +241,7 @@ function ChoiceSight() {
                                     <img src={sight[0][12]} className="card-img" alt={sight[0][2]}
                                         style={{
                                             width: '100%', // 이미지 너비를 100%로 설정
-                                            height: '150px', // 이미지 높이를 100%로 설정
+                                            height: '175px', // 이미지 높이를 100%로 설정
                                         }}
                                     />
                                 </div>
@@ -254,7 +254,7 @@ function ChoiceSight() {
                                                 <TypeTag type={sight[0][3]}> {sight[0][3]} </TypeTag>
                                             </div>
                                             <p className="card-text" style={{ fontSize: '14px'}}>⭐ {sight[0][6]} ✏️ {sight[0][7]}</p>
-                                            <p className="card-text" style={{ fontSize: '14px'}}>📌 {sight[0][4] == '없음' ? sight[0][5] : sight[0][4]}</p>
+                                            <p className="card-text" style={{ fontSize: '13px'}}>📌 {sight[0][4] == '없음' ? sight[0][5] : sight[0][4]}</p>
 
                                             {/* <h5 className="card-title"><b>{sight[0][2]}</b></h5>
                                             <p className="card-text">{sight[0][3]}</p> */}

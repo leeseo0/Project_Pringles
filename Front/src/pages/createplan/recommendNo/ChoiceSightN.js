@@ -10,7 +10,7 @@ function SightBoard({ sights, onSightDeselect }) {
         <div className="sight-board" style={{marginBottom:"20px"}}>
             <div className="card" style={smallcardStyle}>
                 <br />
-                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택한 관광지</b></h4>
+                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '18px' }}><b>선택한 관광지</b></h4>
                 <hr/>
                 <div className="card-body">
                 <ul>
@@ -174,7 +174,7 @@ function ChoiceSight() {
                         >
                             {sights.map((sight, index) => ( 
                                 <div key={index} className="card mb-4" style={{ 
-                                    marginBottom: '10px',height: '150px' ,
+                                    marginBottom: '10px',height: '175px' ,
                                     boxShadow: '0 4px 5px rgba(0, 0, 0, 0.1)',
                                 }} >
                                     <div className="row">
@@ -182,7 +182,7 @@ function ChoiceSight() {
                                             <img src={sight.firstimage} className="card-img" alt={sight.name}
                                                 style={{
                                                     width: '100%', 
-                                                    height: '150px', 
+                                                    height: '175px', 
                                                 }}
                                             />
                                         </div>
@@ -195,7 +195,7 @@ function ChoiceSight() {
                                                         <TypeTag type={sight.type}> {sight.type} </TypeTag>
                                                     </div>
                                                     <p className="card-text" style={{ fontSize: '14px'}}> ⭐ {sight.rating} ✏️ {sight.review}</p>
-                                                    <p className="card-text" style={{ fontSize: '14px' }}>
+                                                    <p className="card-text" style={{ fontSize: '13px' }}>
                                                         📌 {sight.address1 === "없음" ? sight.address2 : `${sight.address2}`}
                                                     </p>
                                                 </div>

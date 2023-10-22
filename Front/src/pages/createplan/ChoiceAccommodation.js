@@ -182,12 +182,13 @@ function ChoiceAccommodation() {
                                             }} />
                                         </div>
                                         <div className="col-md-8">
-                                            <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                 <div>
-
                                                     <h5 className="card-title" style={{ fontSize: '20px', fontWeight: 'bold'  }}><b>{hostel.name}</b></h5>
-                                                    <p className="card-text" style={{ fontSize: '14px' }} >{hostel.type} ⭐{hostel.rating} ✏️{hostel.review} </p>  
-               
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <TypeTag type={hostel.type}> {hostel.type} </TypeTag>
+                                                        <p className="card-text" style={{ fontSize: '14px' }} >⭐{hostel.rating} ✏️{hostel.review} </p>  
+                                                    </div>
                                                     <p className="card-text" style={{ fontSize: '14px' }}>📌 {hostel.address1}</p>
                                                 </div>
                                                 <button
@@ -331,3 +332,13 @@ const cardStyle = {
   const svgIconPathStyle = {
     fill: 'white',
   };
+
+  const TypeTag = styled.div`
+  background-color: ${({ type }) => (type === '없음' ? 'transparent' : '#94A5A6')};   
+  font-size: 12px;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+  display: inline-block;
+`;
