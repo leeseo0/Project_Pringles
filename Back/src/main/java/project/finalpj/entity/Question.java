@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Question {   // Q&A 게시판 질문
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

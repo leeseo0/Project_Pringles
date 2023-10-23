@@ -79,7 +79,7 @@ public class MemberController {
     }
 
     // 회원정보 수정
-    @PutMapping(value = "/mypage/modify/{userid}")
+    @GetMapping(value = "/mypage/modify/{userid}")
     public void memberinfoModify(@PathVariable("userid") String userid, @RequestBody Map<String, String> map) {
         Member m = this.memberRepository.getReferenceById(userid);
         m.setUserid(map.get("userid"));

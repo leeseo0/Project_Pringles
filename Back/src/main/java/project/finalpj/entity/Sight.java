@@ -8,10 +8,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "jeju_sight")
-public class Sight {
+@Table(name = "totalsight")
+public class Sight {   // 관광지 상세페이지에 보여줄 관광지 목록
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sightid;
+
     @Column
     private String name;
     @Column
@@ -22,32 +25,22 @@ public class Sight {
     private String address2;
     @Column
     private String tel;
-
     @Column
     private String placetime;
     @Column
-    private float rating;
+    private Double rating;
     @Column
-    private float review;
-    @Column
-    private String price;
-    @Column
-    private String median;
-    @Column
-    private String medianprice;
-    @Column
-    private float latitude;
-    @Column
-    private float longitude;
-
-    @Column
-    private String newtype;
+    private Integer review;
     @Column
     private String theme;
     @Column
-    private int themenum;
-    @Column
     private String firstimage;
     @Column
-    private String secondimage;
+    private Double latitude;
+    @Column
+    private Double longitude;
+    @Column
+    private String petinfo;
+    @Column
+    private String placeinfo;
 }

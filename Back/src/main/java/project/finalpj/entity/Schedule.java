@@ -1,5 +1,6 @@
 package project.finalpj.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,11 +23,11 @@ public class Schedule {   // 만든 일정 저장
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "startdate")
-    private LocalDate startDate;
+    private LocalDate startDate;   // 일정 시작일
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Column(name = "enddate")
-    private LocalDate endDate;
+    private LocalDate endDate;   // 일정 종료일
 
     @Column(columnDefinition = "TEXT")
     private String accommodation;   // 선택한 숙소
@@ -49,4 +50,8 @@ public class Schedule {   // 만든 일정 저장
 
     @ManyToOne
     private Member member;   // member : schedule = 1:n
+
+//    @ColumnDefault("0")   // 테이블 생성할 때 default 값
+    @Builder.Default   // 객체 생성될 때 default 값
+    private Integer shared = 0;
 }

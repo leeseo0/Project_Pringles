@@ -31,5 +31,6 @@ public class Member { // 회원정보 저장 Entity
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)   // member:schedule = 1:n
     private List<Schedule> scheduleList;
 
-
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)   // member:bookmark = 1:n
+    private List<Bookmark> bookmarkList;
 }

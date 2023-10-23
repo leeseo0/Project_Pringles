@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "planhostel")
 @ToString
-public class Hostel {
+public class Hostel {   // 일정 만들기 페이지에서 조회할 숙소 목록
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
