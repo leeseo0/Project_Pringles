@@ -11,7 +11,7 @@ function SightBoard({ sights, onSightDeselect }) {
         <div className="sight-board" style={{marginBottom:"20px"}}>
             <div className="card" style={smallcardStyle}>
                 <br />
-                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '18px' }}><b>선택한 관광지</b></h4>
+                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택한 관광지</b></h4>
                 <hr/>                
                 <div className="card-body">
                 <ul>
@@ -77,7 +77,7 @@ function ChoiceSight() {
             });
         }, [currentPage,pageSize]);
 
-        
+
     const { kakao } = window;
 
     useEffect(() => {
@@ -173,7 +173,12 @@ function ChoiceSight() {
 
     // 선택 버튼 클릭 시 호출되는 함수
     const handleSightSelect = (sight) => {
-        setSelectedSights([...selectedSights, sight]);
+        const isAlreadySelected = selectedSights.some((selected) => selected[0][0] === sight[0][0]);
+        if (!isAlreadySelected) {
+            setSelectedSights([...selectedSights, sight]);
+        } else {
+            alert("이미 선택한 관광지입니다.");
+        }
     }
 
     // 관광지 제거 함수
@@ -185,10 +190,8 @@ function ChoiceSight() {
             setSelectedSights(updatedSelectedSights);
         }
     }
-    // console.log('kj')
-    // console.log(sightList)
-    // console.log(selectedSights)
-    // console.log(sightList)
+
+
     return (  
         <div>
             <div className="card" style={cardStyle}>
@@ -202,7 +205,7 @@ function ChoiceSight() {
                             stroke-linejoin="round" opacity="0.8" />
                             </svg>
                         </button>
-                        <h3><b>관광지 선택하세요</b></h3>
+                        <h3><b>관광지를 선택하세요</b></h3>
                         <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" 
                                 class="button">
@@ -214,26 +217,25 @@ function ChoiceSight() {
                 </div>
 
             <div className="card-body" style={bodyStyle}>
+
                 {/* <div className="row">
                     <div className="col-md-6">
                         " 검색/필터링"
                     </div>
                     <div className=" col-md-6">
                         "사용자 선택"
-                    </div>
-                        
+                    </div>        
                 </div>  */}
 
-
                 <div className="row">
-                    <div className=" col-md-5" style={{
+                    <div className=" col-md-6" style={{
                         overflow: 'auto',
                         maxHeight: '120vh',
                     }}>
                     
                     {sightList.map((sight, index) => (
                         <div key={index} className="card mb-4" style={{ 
-                            marginBottom: '10px', height: '175px' ,
+                            marginBottom: '10px', height: '180px' ,
                             boxShadow: '0 4px 5px rgba(0, 0, 0, 0.1)',
                             }} >
                             <div className="row">
@@ -241,7 +243,7 @@ function ChoiceSight() {
                                     <img src={sight[0][12]} className="card-img" alt={sight[0][2]}
                                         style={{
                                             width: '100%', // 이미지 너비를 100%로 설정
-                                            height: '175px', // 이미지 높이를 100%로 설정
+                                            height: '180px', // 이미지 높이를 100%로 설정
                                         }}
                                     />
                                 </div>
@@ -253,8 +255,8 @@ function ChoiceSight() {
                                                 <ThemeTag theme={sight[0][11]} style={{ marginRight: '5px' }}>{sight[0][11]}</ThemeTag>
                                                 <TypeTag type={sight[0][3]}> {sight[0][3]} </TypeTag>
                                             </div>
-                                            <p className="card-text" style={{ fontSize: '14px'}}>⭐ {sight[0][6]} ✏️ {sight[0][7]}</p>
-                                            <p className="card-text" style={{ fontSize: '13px'}}>📌 {sight[0][4] == '없음' ? sight[0][5] : sight[0][4]}</p>
+                                            <span className="card-text" style={{ fontSize: '14px'}}>⭐ {sight[0][6]} ✏️ {sight[0][7]}</span><br/>
+                                            <span className="card-text" style={{ fontSize: '14px'}}>📌 {sight[0][4] == '없음' ? sight[0][5] : sight[0][4]}</span>
 
                                             {/* <h5 className="card-title"><b>{sight[0][2]}</b></h5>
                                             <p className="card-text">{sight[0][3]}</p> */}
@@ -274,12 +276,19 @@ function ChoiceSight() {
                     ))}
                     </div>
 
-                    <div className="col-md-7">
+                    <div className="col-md-6">
                         <ListMapWrapper>
                             <SightBoard sights={selectedSights} onSightDeselect={handleSightDeselect} />
                             <div id="map" style={{ width: '100%', height: '500px' }} sightList={sightList} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
                         </ListMapWrapper>
                     </div>
+
+                    {/* <div className="col-md-7">
+                        <ListMapWrapper>
+                            <SightBoard sights={selectedSights} onSightDeselect={handleSightDeselect} />
+                            <div id="map" style={{ width: '100%', height: '500px' }} sightList={sightList} currentPage={currentPage} pageSize={pageSize} onPageChange={handlePageChange} />
+                        </ListMapWrapper>
+                    </div> */}
 
                 </div>
                 <div className="pagination-wrapper text-center">

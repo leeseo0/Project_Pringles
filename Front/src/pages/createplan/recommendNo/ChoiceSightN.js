@@ -10,7 +10,7 @@ function SightBoard({ sights, onSightDeselect }) {
         <div className="sight-board" style={{marginBottom:"20px"}}>
             <div className="card" style={smallcardStyle}>
                 <br />
-                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '18px' }}><b>선택한 관광지</b></h4>
+                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택한 관광지</b></h4>
                 <hr/>
                 <div className="card-body">
                 <ul>
@@ -25,7 +25,7 @@ function SightBoard({ sights, onSightDeselect }) {
                 </ul>
                 </div>
             </div>
-            </div>
+        </div>
     );
   }
 
@@ -33,13 +33,13 @@ function ChoiceSight() {
     const [sights, setSights] = useState([]);
     const [selectedSights, setSelectedSights] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);   // 현재 페이지
-    const pageSize = 15;   // 페이지 크기
+    const [pageSize] = useState(15);   // 페이지 크기
     const [totalPages, setTotalPages] = useState(0);   // 전체 페이지 수
     const navigate = useNavigate();
 
     // 선택한 날짜, 숙소, 추천여부 정보 읽어오기
     const location = useLocation();
-    const { selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn } = location.state;
+    const {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn} = location.state;
     // const selectedStartDate = location.state.startDate;
     // const selectedEndDate = location.state.endDate;
     // const selectedHostels = location.state.selectedHostels;
@@ -47,7 +47,7 @@ function ChoiceSight() {
     console.log('추천여부:', selectedRecommedYn)
     console.log('종료일:', selectedEndDate)
     console.log('관광지:', selectedSights)
-
+    
     const [sightList, setSightList] = useState([]);
 
     // 날짜 차이 일수 계산
@@ -59,13 +59,12 @@ function ChoiceSight() {
 
     // 관광지 목록 호출
     useEffect(() => {
-        console.log("겟할수있니?")
         // 서버에서 페이징된 숙소 목록을 가져오는 요청
         axios.get(`http://localhost:8080/createplan/choicesights?page=${currentPage}&size=${pageSize}`)
         // axios.get("http://localhost:8080/createplan/choicesights")
         .then((response) => {
             const {content, totalPages} = response.data;
-            console.log(response.data);
+            // console.log(response.data);
             // setSights(response.data);
             setSights(content);
             setTotalPages(totalPages);
@@ -73,9 +72,7 @@ function ChoiceSight() {
         .catch((error) => {
             console.error('Error fetching data :', error)
         });
-
     }, [currentPage, pageSize]);
-
 
     // 페이지 번호 목록 생성
     const pageNumbers = [];
@@ -115,7 +112,12 @@ function ChoiceSight() {
 
     // 선택 버튼 클릭 시 호출되는 함수
     const handleSightSelect = (sight) => {
-        setSelectedSights([...selectedSights, sight]);
+        const isAlreadySelected = selectedSights.some((selected) => selected.spotid === sight.spotid);
+        if (!isAlreadySelected) {
+            setSelectedSights([...selectedSights, sight]);
+        } else {
+            alert("이미 선택한 관광지입니다.");
+        }
     }
 
     // 관광지 제거 함수
@@ -130,6 +132,7 @@ function ChoiceSight() {
     console.log('확인')
     console.log(selectedSights)
     console.log(sightList)
+   
 
     return (
         <div>
@@ -174,7 +177,7 @@ function ChoiceSight() {
                         >
                             {sights.map((sight, index) => ( 
                                 <div key={index} className="card mb-4" style={{ 
-                                    marginBottom: '10px',height: '175px' ,
+                                    marginBottom: '10px',height: '150px' ,
                                     boxShadow: '0 4px 5px rgba(0, 0, 0, 0.1)',
                                 }} >
                                     <div className="row">
@@ -182,7 +185,7 @@ function ChoiceSight() {
                                             <img src={sight.firstimage} className="card-img" alt={sight.name}
                                                 style={{
                                                     width: '100%', 
-                                                    height: '175px', 
+                                                    height: '150px', 
                                                 }}
                                             />
                                         </div>
@@ -194,10 +197,11 @@ function ChoiceSight() {
                                                         <ThemeTag theme={sight.theme} style={{ marginRight: '5px' }}>{sight.theme}</ThemeTag>
                                                         <TypeTag type={sight.type}> {sight.type} </TypeTag>
                                                     </div>
-                                                    <p className="card-text" style={{ fontSize: '14px'}}> ⭐ {sight.rating} ✏️ {sight.review}</p>
-                                                    <p className="card-text" style={{ fontSize: '13px' }}>
-                                                        📌 {sight.address1 === "없음" ? sight.address2 : `${sight.address2}`}
-                                                    </p>
+                                                    <span className="card-text" style={{ fontSize: '14px'}}> ⭐ {sight.rating} ✏️ {sight.review}</span>
+                                                    <br/>
+                                                    <span className="card-text" style={{ fontSize: '14px' }}>
+                                                        📌 {sight.address1 === "없음" ? sight.address2 : `${sight.address1}`}
+                                                    </span>
                                                 </div>
                                                 <button
                                                     style={{position: 'absolute', top: '10px', right: '10px', borderRadius: '5px', borderColor: 'lightgray' }}
@@ -361,3 +365,4 @@ const smallcardStyle = {
   const svgIconPathStyle = {
     fill: 'white',
   };
+

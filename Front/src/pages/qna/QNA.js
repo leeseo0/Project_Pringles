@@ -21,7 +21,7 @@ function QNA() {
 
     return (
         <div>
-            <Link className="btn btn-primary" to="/qna/question-create">글쓰기</Link>
+            <Link className="btn btn-primary" to="/qna/question-create"><b>글쓰기</b></Link>
             <table className="table text-center my-3">
                 <thead className="table-dark">
                     <tr>

@@ -9,6 +9,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 260px;
+  height: 280px;
   text-decoration: none;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -29,7 +30,7 @@ const HeartIcon = styled(FaHeart)`
 
 const Image = styled.img`
   width: 100%;
-  max-height: 190px;
+  max-height: 180px;
   object-fit: cover;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -43,14 +44,14 @@ const TagList = styled.div`
 
 const Tag = styled.button`
   background-color: #d57358;
-  font-size: 12px;
+  font-size: 11px;
   color: white;
   padding: 5px 10px;
   border: none;
   border-radius: 20px;
   margin-right: 5px;
   margin-bottom: 5px;
-  cursor: pointer;
+  
 `;
 
 // const Rating = styled.div`
@@ -64,13 +65,14 @@ const Tag = styled.button`
 // `;
 
 // const TouristSpot = ({ name, description, imageUrl, location, tags, rating }) => {
-const TouristSpot = ({ name, imageUrl, tags}) => {
+const TouristSpot = ({ name, imageUrl, tags, onRemoveBookmark}) => {
   const [isBookmarked, setIsBookmarked] = useState(false); // 북마크 상태를 관리하는 상태 변수
   const [isDeleted, setIsDeleted] = useState(false); // 삭제 상태를 관리하는 상태 변수
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked); // 북마크 상태를 반전
-    setIsDeleted(true); // 컨테이너를 삭제 상태로 설정
+    // setIsDeleted(true); // 컨테이너를 삭제 상태로 설정
+    onRemoveBookmark();
   };
   return !isDeleted ? (
     <Container>
@@ -87,9 +89,10 @@ const TouristSpot = ({ name, imageUrl, tags}) => {
       {/* <p>{description}</p> */}
       {/* <p>{location}</p> */}
       <TagList>
-        {tags.map((tag, index) => (
+        <Tag>{tags}</Tag>
+        {/* {tags.map((tag, index) => (
           <Tag key={index}>{tag}</Tag>
-        ))}
+        ))} */}
       </TagList>
       {/* <Rating>
         {Array.from({ length: 5 }).map((_, index) => (

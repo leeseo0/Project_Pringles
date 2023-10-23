@@ -12,6 +12,13 @@ function DateRangePicker() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+
+  // getDayOfWeek 함수 정의
+  const getDayOfWeek = (date) => {
+    const daysOfWeek = ["일","월","화","수","목","금","토"];
+    return daysOfWeek[date.getDay()];
+  }
+
   const handleDatechange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -25,35 +32,38 @@ function DateRangePicker() {
       alert('날짜를 선택해야 합니다.');
     }
   };
-
+  
   return (
     <>
-
-        <div className="card mx-auto" style={cardStyle}>
-          <div className="text-center" style={headerStyle}>
-            <br />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-
-              <h3 style={{ textAlign: 'center' }}><b>날짜를 선택하세요</b></h3>
-              <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
-            </div>
+      <div className="card mx-auto" style={cardStyle}>
+        <div className="text-center" style={headerStyle}>
+          <br/>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <h3 style={{flex:1, textAlign:'center'}}><b>날짜를 선택하세요</b></h3>
+            <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40" height="20" width="20" class="button">
+                  <path d="M4 37l12-17L4 3" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"
+                  stroke-linejoin="round" opacity="0.8" />
+              </svg>
+            </button>
           </div>
+        </div>
 
-          
-          <div className="body" style={bodyStyle}>
-            <br />
-            <div>
+        <div className="body" style={bodyStyle}>
+          <br />
+          <div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
+                
                 <div style={{ border: '1px solid lightGray', borderRadius: '5px', padding: '10px', margin: '10px', width: '225px', height: '50px' }}>
-                  <p><b>시작일  |  </b>    <b>{startDate ? startDate.toLocaleDateString('ko-KR') : 'yyyy.mm.dd'}</b></p>
+                  <p><b>시작일  |  {startDate ? startDate.toLocaleDateString('ko-KR') : 'yyyy-mm-dd'}</b></p>
                 </div>
                 <div style={{ border: '1px solid lightGray', borderRadius: '5px', padding: '10px', margin: '10px', width: '225px', height: '50px' }}>
-                  <p><b>종료일  |  </b> <b>{endDate ? endDate.toLocaleDateString('ko-KR') : 'yyyy.mm.dd'}</b></p>
+                  <p><b>종료일  |  {endDate ? endDate.toLocaleDateString('ko-KR') : 'yyyy-mm-dd'}</b></p>
                 </div>
               </div>
-            </div>
-            <br />
-            <div className="text-center"> {/* 중앙에 배치 */}
+          </div>
+          <br />
+          <div className="text-center"> {/* 중앙에 배치 */}
               <SDatePicker
                 locale={ko}
                 dateFormat="yyyy년 MM월 dd일"
@@ -71,15 +81,13 @@ function DateRangePicker() {
             </div>
           </div>
           <br />
-          {/* <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-            <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
-          </div> */}
-        </div>
-        
-      
+        {/* <div style={{display:'flex', justifyContent:'center'}}>
+          <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
+        </div> */}
+      </div>
     </>
   );
-}
+};
 
 export default DateRangePicker;
 

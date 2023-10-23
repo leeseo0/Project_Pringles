@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
 import Main from "./pages/Main";
+import ImageMain from "./pages/ImageMain";
 import Navbar from "./Navbar";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -25,9 +26,12 @@ import ChoiceTransY from "./pages/createplan/recommendYes/ChoiceTransY";
 import ChoiceTransN from "./pages/createplan/recommendNo/ChoiceTransN";
 import UserinfoModify from "./pages/mypage/UserinfoModify";
 import ShowSelection from "./pages/createplan/ShowSelection";
+import ShowSelectionNo from "./pages/createplan/ShowSelectionNo";
 import InputWeight from "./pages/createplan/recommendYes/InputWeight";
 import PlanDetail from "./pages/mypage/PlanDetail";
 import Sights from "./pages/Sights";
+import ShareList from "./pages/mypage/Share";
+import ShareDetail from "./pages/mypage/ShareDetail";
 
 
 function App() {
@@ -46,11 +50,13 @@ function App() {
         <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
         <div className="container my-3">
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<ImageMain />} />
             <Route path="/sights" element={<Sights />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+            <Route path="/share" element={<ShareList />} />
+            <Route path="/sharepost/:post_id" element={<ShareDetail />} />
             <Route path="/qna" element={<QNA />} />
             <Route path="/qna/:id" element={<QNADetail />} />
             <Route path="/qna/question-create" element={<QuestionCreate />} />
@@ -64,7 +70,8 @@ function App() {
             <Route path="/createplan/y/choicetransportation" element={<ChoiceTransY />} />
             <Route path="/createplan/n/choicetransportation" element={<ChoiceTransN />} />
             <Route path="/createplan/showselection" element={<ShowSelection />} />
-            <Route path="/mypage/modify/:userid" element={<UserinfoModify />} />
+            <Route path="/createplan/showselectionNo" element={<ShowSelectionNo />} />
+            <Route path="/mypage/modify" element={<UserinfoModify />} />
             <Route path="/mypage/planlist" element={<PlanList />} />
             <Route path="/mypage/planlist/plan/:schedule_id" element={<PlanDetail />} />
             <Route path="/mypage/record" element={<Record />} />

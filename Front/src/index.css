@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "NanumSquareNeo-bRg";
+  font-weight: normal;
+  src: url("./fonts/NanumSquareNeo-bRg.ttf") format("truetype");
+}
+
+body {
+  /* margin: 0; */
+  font-family: "NanumSquareNeo-bRg";
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */

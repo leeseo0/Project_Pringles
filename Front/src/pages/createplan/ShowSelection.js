@@ -15,7 +15,7 @@ const DataContainer = styled.div`
   padding: 20px; /* 필요한 패딩 추가 */
 //   overflow-x: scroll;
   overflow-y: auto;
-  height: 750px; /* 고정된 높이 설정 */
+  height: 700px; /* 고정된 높이 설정 */
 //   white-space:nowrap;
 `;
 
@@ -283,10 +283,10 @@ function ShowSelection() {
                     
                       <div style={contentStyle}>
                       {groupedSchedule[day].map((plan, planIndex) => (
-                        <div key={planIndex} className="card mb-4" style={{ marginBottom: '10px', width: '500px', height: '160px' ,  boxShadow: '4px 4px 6px rgba(0, 0, 0, 0.1)', marginLeft: '10px' }}>
+                        <div key={planIndex} className="card mb-4" style={{ marginBottom: '10px', width: '500px', height: '150px' ,  boxShadow: '4px 4px 6px rgba(0, 0, 0, 0.1)', marginLeft: '10px' }}>
                           <div className="row">
                             <div className="col-md-4">
-                              <img src={plan.firstimage} className="card-img" alt={plan.name} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
+                              <img src={plan.firstimage} className="card-img" alt={plan.name} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
                             </div>
                             <div className="col-md-8">
                               <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', }}>
@@ -297,8 +297,9 @@ function ShowSelection() {
                                     <TypeTag type={plan.type}> {plan.type} </TypeTag>
                                     {/* <p className="card-text" style={{ fontSize: '14px', margin: 1 }}>{plan.type}</p> */}
                                   </div>
-                                  <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>📌 : {plan.address1 === '없음' ? plan.address2 : plan.address1}</p>
-                                  <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>⭐{plan.rating} ✏️{plan.review}</p>
+                                  <span className="card-text" style={{ fontSize: '12px', margin: 1 }}>📌 : {plan.address1 === '없음' ? plan.address2 : plan.address1}</span>
+                                  <br/>
+                                  <span className="card-text" style={{ fontSize: '12px', margin: 1 }}>⭐{plan.rating} ✏️{plan.review}</span>
                                 </div>
                               </div>
                             </div>
@@ -315,23 +316,17 @@ function ShowSelection() {
           <div className="col-md-6">
             <MapContainer>
               <div style={{marginBottom: '20px'}}>
-              <div className="card" style={smallcardStyle}>
-                <br />
-                <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택 일정</b></h4>
-                <hr/>
-                <div className="card-body">
-                  <ul>
-                    <li>✈️여행기간: {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</li>
-                    {selectedHostels.length > 0 && (
-                      <li>🏠숙소: {selectedHostels.map(hostel => hostel.name).join(', ')}</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
+                <span><b>✈️ 여행기간</b> : {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</span><br/>
+                {/* <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
+                <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
+                <h5>숙소명 : {selectedHostels}</h5> */}
+                {selectedHostels.length > 0 && (
+                  <span><b>🏠 숙소</b> : {selectedHostels.map(hostel => hostel.name).join(', ')}</span>
+                )}
               </div>
               {/* <div><p>Day1의 시작장소: 제주공항</p></div> */}
               <ListMapWrapper>
-                <div id="map" style={{ width: "100%", height: "500px" }}></div>
+                <div id="map" style={{ width: "100%", height: "600px" }}></div>
               </ListMapWrapper>
             </MapContainer>
           </div>
@@ -376,8 +371,8 @@ const cardContentStyle = {
 const contentStyle = {
   marginTop: '10px',
   fontSize: '14px',
-
 };
+
 
 const smallcardStyle = {
   height: '85%%',

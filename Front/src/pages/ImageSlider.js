@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import img1 from "../images/img1.jpg";
 import img2 from "../images/img2.jpg";
@@ -11,7 +11,11 @@ import img6 from "../images/img6.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ImageSlider = () => {
+
+const ImageSlider = ({isLogin, setIsLogin}) => {
+  
+  const navigate = useNavigate();
+
   const settings = {
     dots: true, // 페이지 번호 표시
     infinite: true, // 무한 루프
@@ -65,7 +69,7 @@ const ImageSlider = () => {
     right: 0,
     bottom: 0,
     padding: "0.75rem 0",
-    margin: "0 0 0 1.85rem",
+    // margin: "0 0 0 1.85rem",
     color: "#ff9800",
     fontWeight: 700,
     lineHeight: 1.6,
@@ -86,6 +90,19 @@ const ImageSlider = () => {
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
 
+
+  // 일정 만들기 메뉴 클릭했을 때, 로그인 유무에 따라 다른 화면
+  function plan() {
+    if (isLogin === true) {
+        navigate('/createplan');
+    } else {
+        alert("로그인이 필요합니다.");
+        navigate('/login');
+    }
+  }
+
+  console.log("isLogin : " + isLogin);
+
   return (
     <div>
       <Slider {...settings}>
@@ -97,7 +114,7 @@ const ImageSlider = () => {
           </div>
         ))}
       </Slider>
-      <div style={{marginBottom:"50px"}}></div>
+      <div style={{marginBottom:"70px"}}></div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button
           className="learn-more"
@@ -116,10 +133,11 @@ const ImageSlider = () => {
           style={{ ...buttonStyle, ...(isHovered2 && hoverCircleStyle) }}
           onMouseEnter={() => setIsHovered2(true)}
           onMouseLeave={() => setIsHovered2(false)}
+          onClick={plan}
         >
           <span className="circle" style={{ ...circleStyle, ...(isHovered2 && hoverCircleStyle) }}></span>
           <span className="button-text">
-            <Link to="/createplan" style={{ textDecoration: "none", ...buttonTextStyle, ...(isHovered2 && hoverButtonTextStyle) }}>일정만들기</Link>
+            <Link style={{ textDecoration: "none", ...buttonTextStyle, ...(isHovered2 && hoverButtonTextStyle) }}>일정만들기</Link>
           </span>
         </button>
 
@@ -131,7 +149,7 @@ const ImageSlider = () => {
         >
           <span className="circle" style={{ ...circleStyle, ...(isHovered3 && hoverCircleStyle) }}></span>
           <span className="button-text">
-            <Link to="/login" style={{ textDecoration: "none", ...buttonTextStyle, ...(isHovered3 && hoverButtonTextStyle) }}>Login</Link>
+            <Link to="/signup" style={{ textDecoration: "none", ...buttonTextStyle, ...(isHovered3 && hoverButtonTextStyle) }}>Sign Up</Link>
           </span>
         </button>
       </div>

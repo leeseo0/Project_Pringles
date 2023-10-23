@@ -1,7 +1,51 @@
-import React, { useEffect, useState, useRef } from "react";
+// import axios from "axios";
+// import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+
+// function ShareDetail() {
+//     const [sharePost, setSharePost] = useState([]);
+//     const params = useParams();
+
+//     useEffect(() => {
+//         async function getShare() {
+//             try {
+//                 const result = await axios.get(`http://localhost:8080/mypage/sharepost/${params.post_id}`);
+//                 console.log(result);
+//                 setSharePost(result.data);
+//             } catch (error) {
+//                 console.log(error);
+//             }
+//         }
+//         getShare();
+//     }, [params.post_id])
+
+//     console.log(params)
+    
+    
+//     return (
+//         <div className="container my-3">
+//             <h3 className="border-bottom py-2"><b>{sharePost.startDate} - {sharePost.endDate}</b></h3>
+//             <div className="card my-3">
+//                 <div className="card-body">
+//                     <div className="card-text">
+//                         {sharePost.accommodation}<br/>
+//                         {sharePost.transportation}
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+
+// export default ShareDetail;
+
+
+
+
 import axios from "axios";
+import { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-import { useLocation, useNavigate } from "react-router-dom";
 import pinmarker from "../../images/pinmarker.png";
 import redpin from "../../images/redpin.png";
 
@@ -51,44 +95,62 @@ function randomColor() {
     return color;
   }
 
-function ShowSelectionNo() {
-    const location = useLocation();
-    const {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn, selectedSights, selectedTrans, title} = location.state;
-    console.log('show')
-    console.log(diff)
-
-    const [scheduleList, setScheduleList] = useState([]);
-    let map = null;
+function ShareDetail() {
+    const [sharePost, setSharingPost] = useState([]);
+    const [resultdata, setResultData] = useState([]);
+    const params = useParams();
+    const mapRef = useRef(null);
 
     useEffect(() => {
-        axios.post('http://localhost:8000/recommendscheduleNo',{
-            title:title,
-            startdate:selectedStartDate,
-            enddate:selectedEndDate,
-            days:parseInt(diff),
-            accommodation:JSON.stringify(selectedHostels),
-            recommendyn:selectedRecommedYn,
-            sights:JSON.stringify(selectedSights),
-            transportation:selectedTrans})
-            .then(response => {
-                const data = response.data;
-                setScheduleList(data);
-                // 응답 처리
-                console.log(response.data);
-            })
-            .catch(error => {
-                // 오류 처리
-                console.error(error);
-            });
-    }, []); 
+        async function getShare() {
+            try {
+                const result = await axios.get(`http://localhost:8080/mypage/sharepost/${params.post_id}`);
+                const resultdata = result.data;
+                console.log('resultdata :', resultdata);
 
+                setResultData(resultdata);
+
+                const dataToSend = {
+                    schedule_id: resultdata.post_id,
+                    title: resultdata.title,
+                    startdate: resultdata.startDate,
+                    enddate: resultdata.endDate,
+                    days: resultdata.days,
+                    accommodation: JSON.stringify(resultdata.accommodation),
+                    // recommendyn: resultdata.recommendYN,
+                    // priceweight: resultdata.priceWeight,
+                    // ratingweight: resultdata.ratingWeight,
+                    // reviewweight: resultdata.reviewWeight,
+                    sights: JSON.stringify(resultdata.sights),
+                    transportation: resultdata.transportation,
+                };
+
+                try {
+                    const fastresult = await axios.post("http://localhost:8000/scheduleDetail", dataToSend);
+                        const fastresultdata = fastresult.data;
+                        console.log("fastresultdata");
+                        console.log(fastresultdata);
+                        setSharingPost(fastresultdata);
+                } catch (error) {
+                    console.log("result data error", error);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getShare();
+    }, [params.post_id])
+
+    console.log(params)
+    let map = null;
+
+    
     // 일정을 'day' 기준으로 그룹화
-    const groupedSchedule = scheduleList.reduce((groups, plan) => {
+    const groupedSchedule = sharePost.reduce((groups, plan) => {
         const day = plan.day;
         if (!groups[day]) {
             groups[day] = [];
-            console.log('groups');
-            console.log(groups[day]);
+            console.log('groups :', groups[day]);
         }
         groups[day].push(plan);
         return groups;
@@ -110,7 +172,7 @@ function ShowSelectionNo() {
             });
         };
         document.head.appendChild(script);
-    }, [scheduleList]);
+    }, [sharePost]);
 
     const lineColors = Object.keys(groupedSchedule).map(() => randomColor());
 
@@ -251,7 +313,7 @@ function ShowSelectionNo() {
 
     return (      
       <div className="container my-3">
-        <h2><b>{title}</b></h2>
+        <h2><b>{resultdata.title}</b></h2>
         <hr />
   
         <div className="row">
@@ -286,14 +348,14 @@ function ShowSelectionNo() {
                             <div className="col-md-8">
                               <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', }}>
                                 <div>
-                                  <h5 className="card-title"><b style={{ fontSize: '17px', margin: 1 }}>{plan.sight_name}</b></h5>
-                                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <ThemeTag theme={plan.theme} style={{ marginRight: '5px' }}>{plan.theme}</ThemeTag>
-                                    <TypeTag type={plan.type}> {plan.type} </TypeTag>
-                                    {/* <p className="card-text" style={{ fontSize: '14px', margin: 1 }}>{plan.type}</p> */}
-                                  </div>
-                                  <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>📌 : {plan.address1 === '없음' ? plan.address2 : plan.address1}</p>
-                                  <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>⭐{plan.rating} ✏️{plan.review}</p>
+                                <h5 className="card-title"><b style={{ fontSize: '17px', margin: 1 }}>{plan.sight_name}</b></h5>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                  <ThemeTag theme={plan.theme} style={{ marginRight: '5px' }}>{plan.theme}</ThemeTag>
+                                  <TypeTag type={plan.type}> {plan.type} </TypeTag>
+                                  {/* <p className="card-text" style={{ fontSize: '14px', margin: 1 }}>{plan.type}</p> */}
+                                </div>
+                                <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>📌 : {plan.address1 === '없음' ? plan.address2 : plan.address1}</p>
+                                <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>⭐{plan.rating} ✏️{plan.review}</p>
                                 </div>
                               </div>
                             </div>
@@ -310,13 +372,18 @@ function ShowSelectionNo() {
           <div className="col-md-6">
             <MapContainer>
               <div style={{marginBottom: '20px'}}>
-                <span><b>✈️ 여행기간</b> : {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</span><br/>
-                {/* <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
-                <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
-                <h5>숙소명 : {selectedHostels}</h5> */}
-                {selectedHostels.length > 0 && (
-                  <span><b>🏠 숙소</b> : {selectedHostels.map(hostel => hostel.name).join(', ')}</span>
-                )}
+              <div className="card" style={smallcardStyle}>
+              <br />
+              <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택 일정</b></h4>
+              <hr/>
+              <div className="card-body">
+                <ul>
+                  <span><b>✈️ 여행기간 :</b> {resultdata.startDate} ~ {resultdata.endDate}</span>
+                  <br/>
+                  <span><b>🏠 숙소 :</b> {resultdata.accommodation ? JSON.parse(resultdata.accommodation).join(', ') : '숙소 정보가 없습니다'}</span>
+                </ul>
+              </div>
+            </div>
               </div>
               {/* <div><p>Day1의 시작장소: 제주공항</p></div> */}
               <ListMapWrapper>
@@ -329,7 +396,7 @@ function ShowSelectionNo() {
     );
 };
 
-export default ShowSelectionNo;
+export default ShareDetail;
 
 const cardStyle = {
   width: '550px',
@@ -374,9 +441,9 @@ const smallcardStyle = {
   borderRadius: '10px',
   overflow: 'hidden',
   boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.1)'
-};
-
-const ThemeTag = styled.div`
+  };
+  
+  const ThemeTag = styled.div`
   background-color:${({ theme }) => themeColors[theme] || 'gray'};
   font-size: 12px;
   border-radius: 5px; 
@@ -384,9 +451,9 @@ const ThemeTag = styled.div`
   padding: 5px 10px;
   margin: 10px;
   display: inline-block;
-`;
-
-const themeColors = {
+  `;
+  
+  const themeColors = {
   '관광지': '#ff9800',
   '체험/액티비티': '#E64B3B',
   '자연': '#2ECC70',
@@ -394,9 +461,9 @@ const themeColors = {
   '맛집': '#EF88BE',
   '소품샵': '#9A58B5',
   '반려동물': '#3397DA',
-};
-
-const TypeTag = styled.div`
+  };
+  
+  const TypeTag = styled.div`
   background-color: ${({ type }) => (type === '없음' ? 'transparent' : '#94A5A6')};   
   font-size: 12px;
   border-radius: 5px;
@@ -404,4 +471,4 @@ const TypeTag = styled.div`
   padding: 5px 10px;
   margin: 10px;
   display: inline-block;
-`;
+  `;

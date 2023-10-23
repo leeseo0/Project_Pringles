@@ -29,7 +29,6 @@ function ChoiceTrans() {
     let diff = Math.abs(selectedEndDate - selectedStartDate)
     diff = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1
     console.log('days:', diff)
-    console.log('days:', diff)
 
     // 교통수단 선택 후 호출될 함수
     const handleTransSelect = (trans) => {
@@ -45,10 +44,10 @@ function ChoiceTrans() {
     async function onSubmit(event) {
         event.preventDefault();
 
-        console.log(window.localStorage.getItem("userid"));
+        console.log(localStorage.getItem("userid"));
 
         try {
-            const result = await axios.post(`http://localhost:8080/createplan/schedule/${window.localStorage.getItem("userid")}`, {
+            const result = await axios.post(`http://localhost:8080/createplan/schedule/${localStorage.getItem("userid")}`, {
                 title: title,
                 startDate: selectedStartDate,
                 // startdate: moment(selectedStartDate).format("YYYY-MM-DD"),
@@ -75,7 +74,7 @@ function ChoiceTrans() {
         }
     }
 
-    // 페이지 이동
+    // // 페이지 이동
     // const moveNextClick = () => {
     //     navigate('/createplan/showselection', {state: {selectedStartDate, selectedEndDate, selectedHostels, selectedRecommedYn : 'Y', inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title}})
     // }
@@ -99,7 +98,7 @@ function ChoiceTrans() {
     }
 
     return (
-            <div className="container my-3">
+        <div className="container my-3">
             <div className="row justify-content-center" >
                 <div className="col-md-8">
                     {/* 위쪽 카드: 교통 수단 선택 */}
@@ -122,9 +121,9 @@ function ChoiceTrans() {
                             </div>
                         </div>
 
-                        <div className="body" style={{  ...bodyStyle, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div className="body" style={{  ...bodyStyle}}>
                             <div style={{ display:'flex', justifyContent:'center', borderColor:'' }}>
-                                <h5><b>  {selectedTrans}  </b></h5>
+                                <h4 style={{fontWeight:'bold'}}><b>  "{selectedTrans}"  </b></h4>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <div>
@@ -148,22 +147,22 @@ function ChoiceTrans() {
                     </div>
                 </div>
                 <br/>
-            <div className="col-md-8">
-                {/* 아래 카드: 일정 제목 입력 */}
-                <div className="card" style={cardStyle}>
-                    <div className="header" style={headerStyle}>
-                        <h4><b>일정의 제목을 입력하세요</b></h4>
-                    </div>
-                    <div className="body" style={{  ...bodyStyle, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <form>
-                            <label htmlFor="title" className="form-label"></label>
-                            <input onChange={titleOnChange} type="text" className="form-control" value={title} id="title" name="title" style={{width:'800px'}}></input>
-                        </form>
+                {/* 일정 제목 입력 */}
+                <div className="col-md-8">
+                    <div className="card" style={underCardStyle}>
+                        <div className="header" style={headerStyle}>
+                            <h4><b>일정의 제목을 입력하세요</b></h4>
+                        </div>
+                        <div className="body" style={{  ...bodyStyle, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <form>
+                                <label htmlFor="title" className="form-label"></label>
+                                <input onChange={titleOnChange} type="text" className="form-control" value={title} id="title" name="title" style={{width:'800px'}}></input>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-            
+        
             {/* 다음 버튼 - 임시 */}
             {/* <div style={{display:'flex', justifyContent:'flex-end'}}>
                 <button type="button" className="btn btn-outline-secondary" onClick={moveNextClick}>다음</button>
@@ -174,33 +173,33 @@ function ChoiceTrans() {
             {/* 추천된 일정보고 다음or확인? 누르면 일정 목록 페이지로? -> 로그인 성공하면 메인 페이지로 이동하듯이 */}
             <div style={{display:'flex', justifyContent:'flex-end'}}>
             {/* Button trigger modal */}
-            <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">저장</button>
-            
-                {/* Modal */}
-                <form onSubmit={onSubmit}>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">저장하시겠습니까?</div>
-                                <div class="modal-footer">
+            {/* <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">저장</button> */}
+        
+            {/* Modal */}
+            <form onSubmit={onSubmit}>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">저장하시겠습니까?</div>
+                            <div class="modal-footer">
 
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="submit" class="btn btn-primary">확인</button>
-                                </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="submit" class="btn btn-primary">확인</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
+            </form>
             </div>
         </div>
-      
     )
 }
 
 export default ChoiceTrans;
+
 
 const transButtonStyle = {
     cursor: "pointer",
@@ -226,6 +225,15 @@ const cardStyle = {
     borderRadius: '10px',
     overflow: 'hidden',
     // marginTop: '5%', // 카드 위쪽 마진
+  };
+  const underCardStyle = {
+    // width: '100%',
+    height: '85%%',
+    backgroundColor: '#fff',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    marginTop: '2%', // 카드 위쪽 마진
   };
 
   const headerStyle = {

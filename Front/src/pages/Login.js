@@ -95,34 +95,34 @@ function Login({isLogin, setIsLogin}) {
                 <h3><b>로그인</b></h3>
             </div> */}
             <div style={cardStyle}>
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                <form onSubmit={onSubmit} style={{width: '400px'}}>
-                    {errorMessage.length > 0 &&
-                        (<div className="alert alert-danger" role="alert">
-                            {errorMessage.map((message, index) => (<div key={index}>{message}</div>))}
-                        </div>)
-                    }
-                    <div style={{fontWeight: 'bold', color: '#454a50', fontSize: '20px', marginBottom:'10px'}}>Login</div>
-                    <div className="form-floating mb-3">
-                        <input onChange={onChange} type="text" className="form-control form-control-lg" id="userid" name="userid"></input>
-                        <label className="form-label" htmlFor="userid"><b>아이디</b></label>
-                    </div>
-                    <br/>
-                    <div className="form-floating mb-3">
-                        <input onChange={onChange} type="password" className="form-control form-control-lg" id="password" name="password" autoComplete="current-password"></input>
-                        <label className="form-label" htmlFor="password"><b>비밀번호</b></label>
-                    </div>
-                    <br />
-                    <button type="sumbit" className="btn btn-primary" style={LoginButtonStyle}><b>Login</b></button>
-                    <p style={loginStyle}> Don't you have an account? <Link to="/Signup" style={loginLinkStyle}>Sign up</Link> </p>
-                </form>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    <form onSubmit={onSubmit} style={{width: '400px'}}>
+                        {errorMessage.length > 0 &&
+                            (<div className="alert alert-danger" role="alert">
+                                {errorMessage.map((message, index) => (<div key={index}>{message}</div>))}
+                            </div>)
+                        }
+                        <div style={{fontWeight: 'bold', color: '#454a50', fontSize: '20px', marginBottom:'15px'}}>Login</div>
+                        <div className="form-floating mb-3">
+                            <input onChange={onChange} type="text" className="form-control" id="userid" name="userid" placeholder="username"></input>
+                            <label className="form-label" htmlFor="userid">아이디</label>
+                        </div>
+                        <br/>
+                        <div className="form-floating mb-3">
+                            <input onChange={onChange} type="password" className="form-control" id="password" name="password" placeholder="password" autoComplete="current-password"></input>
+                            <label className="form-label" htmlFor="password">비밀번호</label>
+                        </div>
+                        <br />
+                        <button type="sumbit" className="btn btn-primary" style={LoginButtonStyle}><b>Login</b></button>
+                    <p style={loginStyle}> Don't you have an account? <Link to="/Signup" style={loginLinkStyle}><b>Sign up</b></Link> </p>
+                    </form>
+                </div>
+                {/* <div className="my-3">
+                    <a href={KAKAO_AUTH_URL} className="kakaobtn">
+                        <img src={kakao}></img>
+                    </a>
+                </div> */}
             </div>
-            {/* <div className="my-3">
-                <a href={KAKAO_AUTH_URL} className="kakaobtn">
-                    <img src={kakao}></img>
-                </a>
-            </div> */}
-        </div>
         </div>
     )
 }
