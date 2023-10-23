@@ -316,13 +316,20 @@ function ShowSelection() {
           <div className="col-md-6">
             <MapContainer>
               <div style={{marginBottom: '20px'}}>
-                <span><b>✈️ 여행기간</b> : {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</span><br/>
-                {/* <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
-                <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
-                <h5>숙소명 : {selectedHostels}</h5> */}
-                {selectedHostels.length > 0 && (
-                  <span><b>🏠 숙소</b> : {selectedHostels.map(hostel => hostel.name).join(', ')}</span>
-                )}
+                <div className="card" style={smallcardStyle}>
+                  <br />
+                  <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택 일정</b></h4>
+                  <hr/>
+                  <div className="card-body">
+                    <ul>
+                      <span><b>✈️ 여행기간</b> : {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</span>
+                      <br/>
+                      {selectedHostels.length > 0 && (
+                        <span><b>🏠 숙소</b> : {selectedHostels.map(hostel => hostel.name).join(', ')}</span>
+                      )}
+                    </ul>
+                  </div>
+                </div>
               </div>
               {/* <div><p>Day1의 시작장소: 제주공항</p></div> */}
               <ListMapWrapper>

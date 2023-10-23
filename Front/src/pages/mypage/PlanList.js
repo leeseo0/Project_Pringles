@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from './Sidebar';
+import { IconButton } from "@mui/material";
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 function PlanList() {
     const [scheduleList, setSchduleList] = useState([]);
@@ -126,7 +128,8 @@ function PlanList() {
                                             onClick={() => deleteClick(schedule.schedule_id)}
                                             className="btn btn-outline-secondary btn-sm"
                                             style={{position:'absolute', top:'2.5px', right:'45px', border:'none'}}>
-                                            <b>삭제</b>
+                                            <IconButton sx={{p:"1px"}}><DeleteOutlinedIcon/></IconButton>
+                                            {/* <b>삭제</b> */}
                                         </button>
                                         <div className='form-check form-switch' style={{position:'absolute', top:'5px', right:'0px'}}>
                                             <input className='form-check-input' type='checkbox' role='switch'
