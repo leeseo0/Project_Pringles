@@ -39,16 +39,4 @@ public class MemberService {
 
         return false;
     }
-
-    public String getUserName(String userId) {
-        // userId를 사용하여 사용자 이름 조회
-        Member member = memberRepository.findByUserid(userId).orElse(null);
-
-        if (member != null) {
-            return member.getUsername();
-        }
-
-        return null;  // 사용자를 찾을 수 없을 경우 null 반환
-    }
-
 }

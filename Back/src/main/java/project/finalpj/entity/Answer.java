@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Answer {
+public class Answer {   // Q&A 게시판 답변
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

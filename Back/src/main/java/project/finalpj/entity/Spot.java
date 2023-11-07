@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name = "jeju_all")
+@Table(name = "planspot")
 @ToString
-public class Spot {
+public class Spot {   // 일정 만들기 페이지에서 조회할 관광지 목록
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sight_id;
+    private Long spotid;
 
     @Column
     private String name;
@@ -24,14 +24,13 @@ public class Spot {
     private String placetime;
     private double rating;
     private int review;
-    private String price;
-    private String median;
     private String medianprice;
-    private double latitude;
-    private double longitude;
-    private String newtype;
+    private double ratingscore;
+    private double reviewscore;
+    private double pricescore;
     private String theme;
     private int themenum;
     private String firstimage;
-    private String secondimage;
+    private double latitude;
+    private double longitude;
 }

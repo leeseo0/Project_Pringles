@@ -23,6 +23,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
+    // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody Map<String, String> map) {
         try {
@@ -36,6 +37,7 @@ public class MemberController {
         }
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> map) {
         try {
@@ -76,20 +78,14 @@ public class MemberController {
         private String userid;
     }
 
-
-    @GetMapping("/getUserName")
-    public ResponseEntity<?> getUserName(@RequestParam String userId) {
-        try {
-            //userId를 사용하여 사용자 이름 조회
-            String userName = memberService.getUserName(userId);
-
-            if (userName != null) {
-                return ResponseEntity.ok(userName);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("사용자 이름 조회 에러");
-        }
+    // 회원정보 수정
+    @GetMapping(value = "/mypage/modify/{userid}")
+    public void memberinfoModify(@PathVariable("userid") String userid, @RequestBody Map<String, String> map) {
+        Member m = this.memberRepository.getReferenceById(userid);
+        m.setUserid(map.get("userid"));
+        m.setUsername(map.get("username"));
+        m.setPassword(map.get("password"));
+        m.setEmail(map.get("email"));
+        memberRepository.save(m);
     }
 }
