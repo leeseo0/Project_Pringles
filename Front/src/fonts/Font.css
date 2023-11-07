@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: lighter;
+    src: url("./NanumSquareNeo-aLt.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: normal;
+    src: url("./NanumSquareNeo-bRg.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: bold;
+    src: url("./NanumSquareNeo-cBd.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 800;
+    src: url("./NanumSquareNeo-dEb.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareNeo";
+    font-style: normal;
+    font-weight: 900;
+    src: url("./NanumSquareNeo-eHv.ttf") format("truetype");
+}

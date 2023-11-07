@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styled from 'styled-components';
 import { useLocation, useNavigate } from "react-router-dom";
-import bluemarker from "../../images/blue_marker.png";
-import redmarker from "../../images/red_marker.png";
-import blackmarker from "../../images/black_marker.png";
+import pinmarker from "../../images/pinmarker.png";
+import redpin from "../../images/redpin.png";
 
 const Container = styled.div`
   display: flex;
@@ -162,11 +161,11 @@ function ShowSelectionNo() {
         }); 
 
         const markerImage = new window.kakao.maps.MarkerImage(
-          blackmarker, // 사용자 정의 마커 이미지의 URL로 대체
+          redpin, // 사용자 정의 마커 이미지의 URL로 대체
           new window.kakao.maps.Size(40, 40), // 사용자 정의 마커의 크기를 설정합니다.
         );
         const startMarkerImage = new window.kakao.maps.MarkerImage(
-          redmarker, // 사용자 정의 마커 이미지의 URL로 대체
+          pinmarker, // 사용자 정의 마커 이미지의 URL로 대체
           new window.kakao.maps.Size(40, 40), // 사용자 정의 마커의 크기를 설정합니다.
         );
 
@@ -288,7 +287,11 @@ function ShowSelectionNo() {
                               <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', }}>
                                 <div>
                                   <h5 className="card-title"><b style={{ fontSize: '17px', margin: 1 }}>{plan.sight_name}</b></h5>
-                                  <p className="card-text" style={{ fontSize: '14px', margin: 1 }}>{plan.type}</p>
+                                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <ThemeTag theme={plan.theme} style={{ marginRight: '5px' }}>{plan.theme}</ThemeTag>
+                                    <TypeTag type={plan.type}> {plan.type} </TypeTag>
+                                    {/* <p className="card-text" style={{ fontSize: '14px', margin: 1 }}>{plan.type}</p> */}
+                                  </div>
                                   <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>📌 : {plan.address1 === '없음' ? plan.address2 : plan.address1}</p>
                                   <p className="card-text" style={{ fontSize: '12px', margin: 1 }}>⭐{plan.rating} ✏️{plan.review}</p>
                                 </div>
@@ -306,14 +309,21 @@ function ShowSelectionNo() {
           </div>
           <div className="col-md-6">
             <MapContainer>
-              <div style={{marginLeft: '50px', marginBottom: '20px'}}>
-                <li>✈️여행기간: {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</li>
-                {/* <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
-                <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
-                <h5>숙소명 : {selectedHostels}</h5> */}
-                {selectedHostels.length > 0 && (
-                  <li>🏠숙소: {selectedHostels.map(hostel => hostel.name).join(', ')}</li>
-                )}
+              <div style={{marginBottom: '20px'}}>
+                <div className="card" style={smallcardStyle}>
+                  <br />
+                  <h4 style={{ textAlign: 'left', color: '#ff9800', marginLeft: '20px' }}><b>선택 일정</b></h4>
+                  <hr/>
+                  <div className="card-body">
+                    <ul>
+                      <span><b>✈️ 여행기간</b> : {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</span>
+                      <br/>
+                      {selectedHostels.length > 0 && (
+                        <span><b>🏠 숙소</b> : {selectedHostels.map(hostel => hostel.name).join(', ')}</span>
+                      )}
+                    </ul>
+                  </div>
+                </div>
               </div>
               {/* <div><p>Day1의 시작장소: 제주공항</p></div> */}
               <ListMapWrapper>
@@ -364,3 +374,41 @@ const contentStyle = {
   fontSize: '14px',
 
 };
+
+const smallcardStyle = {
+  height: '85%%',
+  backgroundColor: '#fff',
+  borderRadius: '10px',
+  overflow: 'hidden',
+  boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.1)'
+};
+
+const ThemeTag = styled.div`
+  background-color:${({ theme }) => themeColors[theme] || 'gray'};
+  font-size: 12px;
+  border-radius: 5px; 
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+  display: inline-block;
+`;
+
+const themeColors = {
+  '관광지': '#ff9800',
+  '체험/액티비티': '#E64B3B',
+  '자연': '#2ECC70',
+  '문화/예술/역사': '#7CAEE0',
+  '맛집': '#EF88BE',
+  '소품샵': '#9A58B5',
+  '반려동물': '#3397DA',
+};
+
+const TypeTag = styled.div`
+  background-color: ${({ type }) => (type === '없음' ? 'transparent' : '#94A5A6')};   
+  font-size: 12px;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+  display: inline-block;
+`;

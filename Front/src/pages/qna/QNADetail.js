@@ -24,6 +24,8 @@ function QNADetail() {
         getQuestion();
     }, [params.id])
 
+    console.log(params)
+
     function onChange(event) {
        setAnswerText(event.target.value) 
     }
@@ -51,7 +53,7 @@ function QNADetail() {
             try {
                 await axios.delete(`http://localhost:8080/qna/question-delete/${params.id}`);
                 alert("삭제 되었습니다.");
-                navigate("/mypage/qna");
+                navigate("/qna");
             } catch (error) {
                 alert("네트워크 문제로 삭제가 되지 않았습니다.");
             }
@@ -59,6 +61,7 @@ function QNADetail() {
             alert("취소되었습니다.")
         }
     }
+    
 
     return (
         <div>
@@ -75,7 +78,7 @@ function QNADetail() {
                         {/* 질문 수정 버튼 */}
                         <Link to={`/qna/question-modify/${params.id}`} className="btn btn-sm btn-outline-secondary">수정</Link>
                         {/* 질문 삭제 버튼 */}
-                        <Link><button onClick={onDelete} className="btn btn-sm btn-outline-danger ms-2">삭제</button></Link>
+                        <button onClick={onDelete} className="btn btn-sm btn-outline-danger ms-2">삭제</button>
                     </div>
                     
                 </div>
