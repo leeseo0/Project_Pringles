@@ -1,7 +1,7 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styled from 'styled-components';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import bluemarker from "../../images/blue_marker.png";
 import redmarker from "../../images/red_marker.png";
 import blackmarker from "../../images/black_marker.png";
@@ -52,30 +52,25 @@ function randomColor() {
     return color;
   }
 
-function ShowSelection() {
+function ShowSelectionNo() {
     const location = useLocation();
-    const {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn, inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title} = location.state;
-    console.log('show');
-    console.log(diff);
+    const {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn, selectedSights, selectedTrans, title} = location.state;
+    console.log('show')
+    console.log(diff)
 
     const [scheduleList, setScheduleList] = useState([]);
     let map = null;
-    // const mapRef = useRef(null);
 
     useEffect(() => {
-        axios.post('http://localhost:8000/recommendschedule',{
+        axios.post('http://localhost:8000/recommendscheduleNo',{
             title:title,
             startdate:selectedStartDate,
             enddate:selectedEndDate,
             days:parseInt(diff),
             accommodation:JSON.stringify(selectedHostels),
             recommendyn:selectedRecommedYn,
-            priceweight:parseFloat(inputPriceWeight),
-            ratingweight:parseFloat(inputRatingWeight),
-            reviewweight:parseFloat(inputReviewWeight),
             sights:JSON.stringify(selectedSights),
-            transportation:selectedTrans,
-        })
+            transportation:selectedTrans})
             .then(response => {
                 const data = response.data;
                 setScheduleList(data);
@@ -86,7 +81,7 @@ function ShowSelection() {
                 // 오류 처리
                 console.error(error);
             });
-    }, [diff]); 
+    }, []); 
 
     // 일정을 'day' 기준으로 그룹화
     const groupedSchedule = scheduleList.reduce((groups, plan) => {
@@ -331,7 +326,7 @@ function ShowSelection() {
     );
 };
 
-export default ShowSelection;
+export default ShowSelectionNo;
 
 const cardStyle = {
   width: '550px',

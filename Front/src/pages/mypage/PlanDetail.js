@@ -1,7 +1,7 @@
-import React, { useEffect, useState} from "react";
 import axios from "axios";
+import { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-import { useLocation } from "react-router-dom";
 import bluemarker from "../../images/blue_marker.png";
 import redmarker from "../../images/red_marker.png";
 import blackmarker from "../../images/black_marker.png";
@@ -52,44 +52,59 @@ function randomColor() {
     return color;
   }
 
-function ShowSelection() {
-    const location = useLocation();
-    const {selectedStartDate, selectedEndDate, diff, selectedHostels, selectedRecommedYn, inputReviewWeight, inputPriceWeight, inputRatingWeight, selectedSights, selectedTrans, title} = location.state;
-    console.log('show');
-    console.log(diff);
-
-    const [scheduleList, setScheduleList] = useState([]);
-    let map = null;
-    // const mapRef = useRef(null);
+function PlanDetail() {
+    const [schedule, setSchedule] = useState([]);
+    const [resultdata, setResultData] = useState([]);
+    const params = useParams();
+    const mapRef = useRef(null);
 
     useEffect(() => {
-        axios.post('http://localhost:8000/recommendschedule',{
-            title:title,
-            startdate:selectedStartDate,
-            enddate:selectedEndDate,
-            days:parseInt(diff),
-            accommodation:JSON.stringify(selectedHostels),
-            recommendyn:selectedRecommedYn,
-            priceweight:parseFloat(inputPriceWeight),
-            ratingweight:parseFloat(inputRatingWeight),
-            reviewweight:parseFloat(inputReviewWeight),
-            sights:JSON.stringify(selectedSights),
-            transportation:selectedTrans,
-        })
-            .then(response => {
-                const data = response.data;
-                setScheduleList(data);
-                // 응답 처리
-                console.log(response.data);
-            })
-            .catch(error => {
-                // 오류 처리
-                console.error(error);
-            });
-    }, [diff]); 
+        async function getPlan() {
+            try {
+                const result = await axios.get(`http://localhost:8080/mypage/planlist/plan/${params.schedule_id}`);
+                const resultdata = result.data;
+                console.log('resultdata');
+                console.log(resultdata);
+                
+                setResultData(resultdata);
 
+                const dataToSend = {
+                    schedule_id: resultdata.schedule_id,
+                    title: resultdata.title,
+                    startdate: resultdata.startDate,
+                    enddate: resultdata.endDate,
+                    days: resultdata.days,
+                    accommodation: JSON.stringify(resultdata.accommodation),
+                    recommendyn: resultdata.recommendYN,
+                    priceweight: resultdata.priceWeight,
+                    ratingweight: resultdata.ratingWeight,
+                    reviewweight: resultdata.reviewWeight,
+                    sights: JSON.stringify(resultdata.sights),
+                    transportation: resultdata.transportation,
+                };
+
+                try {
+                    const fastresult = await axios.post("http://localhost:8000/scheduleDetail", dataToSend);
+                        const fastresultdata = fastresult.data;
+                        console.log("fastresultdata");
+                        console.log(fastresultdata);
+                    setSchedule(fastresultdata);
+                } catch (error) {
+                    console.log("result data error", error);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getPlan();
+    }, [params.schedule_id])
+
+    console.log(params)
+    let map = null;
+
+    
     // 일정을 'day' 기준으로 그룹화
-    const groupedSchedule = scheduleList.reduce((groups, plan) => {
+    const groupedSchedule = schedule.reduce((groups, plan) => {
         const day = plan.day;
         if (!groups[day]) {
             groups[day] = [];
@@ -116,7 +131,7 @@ function ShowSelection() {
             });
         };
         document.head.appendChild(script);
-    }, [scheduleList]);
+    }, [schedule]);
 
     const lineColors = Object.keys(groupedSchedule).map(() => randomColor());
 
@@ -257,7 +272,7 @@ function ShowSelection() {
 
     return (      
       <div className="container my-3">
-        <h2><b>{title}</b></h2>
+        <h2><b>{resultdata.title}</b></h2>
         <hr />
   
         <div className="row">
@@ -312,13 +327,8 @@ function ShowSelection() {
           <div className="col-md-6">
             <MapContainer>
               <div style={{marginLeft: '50px', marginBottom: '20px'}}>
-                <li>✈️여행기간: {selectedStartDate.toLocaleDateString()} ~ {selectedEndDate.toLocaleDateString()}</li>
-                {/* <h5>시작일 : {selectedStartDate.toLocaleDateString()}</h5>
-                <h5>종료일 : {selectedEndDate.toLocaleDateString()}</h5>
-                <h5>숙소명 : {selectedHostels}</h5> */}
-                {selectedHostels.length > 0 && (
-                  <li>🏠숙소: {selectedHostels.map(hostel => hostel.name).join(', ')}</li>
-                )}
+                <li>✈️여행기간: {resultdata.startDate} ~ {resultdata.endDate}</li>
+                <li>🏠숙소: {resultdata.accommodation ? JSON.parse(resultdata.accommodation).join(', ') : '숙소 정보가 없습니다'}</li>
               </div>
               {/* <div><p>Day1의 시작장소: 제주공항</p></div> */}
               <ListMapWrapper>
@@ -331,7 +341,7 @@ function ShowSelection() {
     );
 };
 
-export default ShowSelection;
+export default PlanDetail;
 
 const cardStyle = {
   width: '550px',
