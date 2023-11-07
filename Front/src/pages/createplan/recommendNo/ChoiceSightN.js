@@ -365,4 +365,3 @@ const smallcardStyle = {
   const svgIconPathStyle = {
     fill: 'white',
   };
-
