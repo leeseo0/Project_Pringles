@@ -13,7 +13,7 @@
 |이름 |[김지현](https://github.com/kjjh714)|[이경주](https://github.com/kzoou2)|[이서영](https://github.com/leeseo0)|
 |---|------------|------------|------------|
 |포지션|Back-end<br/>Front-end|Back-end <br/> Front-end |Data <br/>  Front-end|
-||- 데이터베이스 설계 및 연동 <br/>- SpringBoot 활용한 회원가입 / 로그인 <br/>- 게시글 CRUD 구현 <br/> - 웹페이지 설계 및 구현 <br/> - FE 작업|-  데이터 크롤링 및 전처리  <br/> - Kakao map API 연동  <br/> - 관광지 CRUD 구현 <br/> - 웹디자인 설계 및 구현  <br/> - FE 작업|- 데이터 크롤링/전처리/시각화 <br/>- 관광지 추천 및 일정 생성  Fast API구축 <br/> - Kakao map API 연동 <br/> - 메인페이지 설계 및 구현 <br/> - FE 작업|
+||- 데이터베이스 설계 및 연동 <br/>- SpringBoot 활용한 회원가입 / 로그인 <br/>- 게시글 CRUD 구현 <br/> - 웹페이지 설계 및 구현 <br/> - FE 작업|-  데이터 크롤링 및 전처리  <br/> - Kakao map API 연동  <br/> - 관광지 CRUD 구현 <br/> - 웹디자인 설계 및 구현  <br/> - FE 작업|- 데이터 크롤링/전처리/시각화 <br/>- 관광지 추천 및 일정 생성  Fast API구축 <br/> - Kakao map API 연동 <br/> - FE 작업|
 
 ## 3. 주요 자료(데이터)
 - 네이버 지도 크롤링
