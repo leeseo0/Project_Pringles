@@ -1,5 +1,7 @@
 # Final_Pringles
 
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/1ace0d03-07f2-4e9a-94f1-e7db20fd541e" />
+
 ## 1. 기획 배경 및 프로젝트 소개
 ### 사용자 선호도와 위치 기반에 따른 제주 관광지 추천 및 일정 생성
 - 기간: 23.08.22 ~ 23.10.23
@@ -51,7 +53,7 @@
 - 각 일자별로 시작 위치에서 가장 가까운 관광지 3개씩 할당
   
 ## 5. ERD
-![](https://www.notion.so/521070a85365433abab593423e9bf28e?pvs=4#e37d101e155242c293474c6257c11c30)
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/1e3b0809-8ae6-4b0d-805c-1fed7dc6da01" width="65%" height="50%" />
 
 ## 6. 기능 소개
 
