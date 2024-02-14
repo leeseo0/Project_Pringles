@@ -52,7 +52,7 @@
 
 7. 시스템 아키텍처 및 기술 스택
    
-<b>[FRONT-END]</b>
+<b>✔️[FRONT-END]</b>
 <div>
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
@@ -62,7 +62,7 @@
   <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 </div>
 
-<b>[BACK-END / DATA]</b>
+<b>✔️[BACK-END / DATA]</b>
 <div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
@@ -72,13 +72,11 @@
   <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white">
   <img src="https://img.shields.io/badge/selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white">
   <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"> 
-  <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white">
-  <img src="https://img.shields.io/badge/JPA-?style=for-the-badge&logo=JPA&logoColor=white">
-  <img src="https://img.shields.io/badge/BeautifulSoup-?style=for-the-badge&logo=BeautifulSoup&logoColor=white">
+  <img src="https://img.shields.io/badge/JPA-BAAE85?style=for-the-badge&logo=JPA&logoColor=white">
+  <img src="https://img.shields.io/badge/BeautifulSoup-000000?style=for-the-badge&logo=BeautifulSoup&logoColor=white">
 </div>
 
-
-<b>[협업툴]</b>
+<b>✔️[협업툴]</b>
 <div>
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
