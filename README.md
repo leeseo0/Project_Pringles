@@ -1,9 +1,8 @@
 # Final_Pringles
 
-<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/1ace0d03-07f2-4e9a-94f1-e7db20fd541e" />
 
 ## 1. 기획 배경 및 프로젝트 소개
-### 사용자 선호도와 위치 기반에 따른 제주 관광지 추천 및 일정 생성
+### 사용자 선호도와 위치 기반에 따른 제주 관광지 추천 및 일정 생성 
 - 기간: 23.08.22 ~ 23.10.23
 - 코로나19로 인해 국내 여행 수요 감소하였다가 코로나19가 완화됨에 따라 국내 여행 수요 및 소비 증가
 - 그 중 국내 여행 중 제주도 여행 선정
@@ -56,6 +55,84 @@
 <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/1e3b0809-8ae6-4b0d-805c-1fed7dc6da01" width="65%" height="50%" />
 
 ## 6. 기능 소개
+|구분 |기능|설명|
+|---------|-------|----------------|
+|회원|- 회원가입 <br/> - 로그인&로그아웃 |- ID, PW, 닉네임 작성을 통한 회원 관리|
+|마이페이지|- 사용자 여행 일정 <br/> - 관광지 북마크 목록 |- 사용자가 생성한 여행 일정 기록 목록 확인 <br/> - 사용자가 북마크 표시한 관광지 목록 확인|
+|여행 일정 생성|- 사용자 맞춤 키워드에 따른 관광지 추천 및 일정 생성 |- 날짜 선택 → 숙소 선택 → 사용자 선호도 선택  <br/> - 사용자가 입력한 가중치 활용한 관광지 추천 <br/> - 사용자 일자별 시작 위치와 선택한 모든 관광지의 직선거리 계산  <br/>- 일자별로 관광지 3개씩 할당 <br/>- 선택한 관광지에 의한 일정 생성 및 스팟마다 지도 직선 표시 |
+|관광지 조회|- 추천 관광지 상세정 |-해당 관광지 카카오 맵 마커 및 지도 표시 <br/> - 여행지 주소, 소개 등 기본 정보 조회 |
+|게시판|- QnA 게시판 <br/> - 여행 계획 공유게시판 |-질문 작성 및 답변 작성, 수정 <br/> - 나의 여행 계획 공유 및 다른 사용자의 여행 계획 조회 |
+
+<br/>
+
+### 🟠회원
+
+- 회원가입
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/ec5cc999-4037-447b-a305-a6620335775e" width="60%" height="100%" />
+
+- 로그인
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/97bad744-f4d7-4be2-a54b-04e11e8da52c" width="60%" height="100%"  />
+
+
+
+### 🟠마이페이지
+
+- 마이페이지
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/e8a72992-3da1-44c4-a256-f2174785a99b" width="60%" height="100%" />
+  
+- 전체 일정 목록
+  <div>
+    <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/4a97fe9d-e1ca-424e-b7c8-98fb13d788ba" width="47%" height="100%"/> <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/b173f4f2-44ac-4359-97c0-1459e44a1fc6" width="47%" height="100%"/>
+  </div>
+  
+- 공유게시판
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/7f28b649-3a18-40a2-a6cf-9feb9a785a89" width="60%" height="100%" />
+  
+- 북마크 목록
+  <div>
+    <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/b0e4e1e7-ce19-4903-9d78-eed5ec4529f6" width="47%" height="100%"/> <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/cfdf010f-34a7-44fb-bb9e-43c9e8482e17" width="47%" height="100%"/>
+  </div>
+
+
+
+### 🟠여행 일정 생성
+
+- 날짜 선택
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/06ffad9a-872b-494b-b13e-c89455281fa4" width="60%" height="100%"/>
+
+- 숙소 선택
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/dec1e6a1-e095-4c83-b37c-68cd2152a010"  width="60%" height="100%"/>
+
+- 일정 추천 여부
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/ba7b3903-4665-488c-b808-c14ee8e04842"  width="60%" height="100%"/>
+
+- 사용자 선호도 조사
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+
+- 사용자가 입력한 가중치 활용한 관광지
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+
+- 교통수단 선택 및 일정 제목 설정
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+
+- 일정 생성 (일자별 관광지 할당)
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+
+
+
+### 🟠관광지 조회
+- 관광지 상세페이지
+  <div>
+    <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/dc7c13aa-34f7-4a74-bca3-72ff6b735636"  width="60%" height="100%"/> <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/04f64f97-47df-4fd7-aa38-22b1d4ea7f19"  width="60%" height="100%"/>
+  </div>
+
+
+
+### 🟠QnA게시판
+<div>
+  <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/bc544143-7376-4954-9548-58ca2ccc187d"  width="47%" height="100%"/> <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/c61bcce5-d930-4f19-8088-85c490e21f70"  width="47%" height="100%"/>
+</div>
+
 
 ## 7. 시스템 아키텍처 및 기술 스택
    
@@ -95,8 +172,210 @@
 
 ## 8. 폴더 구조
 [BACK-END]
-
+```bash
+├─Back
+📦Back
+ ┣ 📂gradle
+ ┃ ┗ 📂wrapper
+ ┃ ┃ ┣ 📜gradle-wrapper.jar
+ ┃ ┃ ┗ 📜gradle-wrapper.properties
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂project
+ ┃ ┃ ┃ ┃ ┗ 📂finalpj
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BookmarkController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HostelController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuestionController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SearchController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SharePostController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SightController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SpotController.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂DTO
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AnswerDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BookmarkDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HostelDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuestionDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SharePostDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SightResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Answer.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Bookmark.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Hostel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Member.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Question.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Schedule.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Search.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SharePost.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Sight.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Spot.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AnswerRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BookmarkRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HostelRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuestionRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SearchRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SharePostRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SightRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SpotRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BookmarkService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HostelService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SearchService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SharePostService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SightService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SpotService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FinalPjApplication.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜SecurityConfig.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┗ 📜application.properties
+ ┃ ┗ 📂test
+ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┗ 📂project
+ ┃ ┃ ┃ ┃ ┗ 📂finalpj
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FinalPjApplicationTests.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜HostelRepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberRepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜QnARepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduleRepositoryTest.java
+ ┣ 📜.gitignore
+ ┣ 📜build.gradle
+ ┣ 📜gradlew
+ ┣ 📜gradlew.bat
+ ┣ 📜README.md
+ ┗ 📜settings.gradle
+```
 [DATA]
-
+```bash
+📦Data
+ ┣ 📂__pycache__
+ ┃ ┣ 📜main.cpython-311.pyc
+ ┃ ┗ 📜recommend.cpython-311.pyc
+ ┣ 📜database.py
+ ┣ 📜main.py
+ ┣ 📜model_data_cluster_visual.ipynb
+ ┣ 📜model_plan.ipynb
+ ┣ 📜README.md
+ ┣ 📜sight_score.csv
+ ┣ 📜total_hostel.csv
+ ┣ 📜user_data_select.csv
+ ┣ 📜user_select_sight.csv
+ ┣ 📜user_weight_culcurate.ipynb
+ ┗ 📜weight_model.ipynb
+```
 [FRONT-END]
+```bash
+📦Front
+ ┣ 📂public
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜logo192.png
+ ┃ ┣ 📜logo512.png
+ ┃ ┣ 📜manifest.json
+ ┃ ┗ 📜robots.txt
+ ┣ 📂src
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📜HotelMap.js
+ ┃ ┃ ┣ 📜MapContainer.js
+ ┃ ┃ ┣ 📜Modal.js
+ ┃ ┃ ┣ 📜ModalContainer.js
+ ┃ ┃ ┣ 📜SightMaps.js
+ ┃ ┃ ┗ 📜useOutSideClick.js
+ ┃ ┣ 📂data+fast
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┣ 📜main.cpython-311.pyc
+ ┃ ┃ ┃ ┗ 📜recommend.cpython-311.pyc
+ ┃ ┃ ┗ 📜main.py
+ ┃ ┣ 📂fonts
+ ┃ ┃ ┣ 📜Font.css
+ ┃ ┃ ┣ 📜NanumSquareNeo-aLt.ttf
+ ┃ ┃ ┣ 📜NanumSquareNeo-bRg.ttf
+ ┃ ┃ ┣ 📜NanumSquareNeo-cBd.ttf
+ ┃ ┃ ┣ 📜NanumSquareNeo-dEb.ttf
+ ┃ ┃ ┗ 📜NanumSquareNeo-eHv.ttf
+ ┃ ┣ 📂images
+ ┃ ┃ ┣ 📜img1.jpg
+ ┃ ┃ ┣ 📜img2.jpg
+ ┃ ┃ ┣ 📜img3.jpg
+ ┃ ┃ ┣ 📜img4.jpg
+ ┃ ┃ ┣ 📜img5.jpg
+ ┃ ┃ ┣ 📜img6.jpg
+ ┃ ┃ ┣ 📜kakao_login.png
+ ┃ ┃ ┣ 📜kakao_login_small.png
+ ┃ ┃ ┣ 📜logo8.png
+ ┃ ┃ ┣ 📜No.png
+ ┃ ┃ ┣ 📜pinmarker.png
+ ┃ ┃ ┣ 📜Plus.png
+ ┃ ┃ ┣ 📜redpin.png
+ ┃ ┃ ┣ 📜user.png
+ ┃ ┃ ┗ 📜Yes.png
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📂createplan
+ ┃ ┃ ┃ ┣ 📂recommendNo
+ ┃ ┃ ┃ ┃ ┣ 📜ChoiceSightN.js
+ ┃ ┃ ┃ ┃ ┗ 📜ChoiceTransN.js
+ ┃ ┃ ┃ ┣ 📂recommendYes
+ ┃ ┃ ┃ ┃ ┣ 📜ChoiceSightY.js
+ ┃ ┃ ┃ ┃ ┣ 📜ChoiceTransY.js
+ ┃ ┃ ┃ ┃ ┗ 📜InputWeight.js
+ ┃ ┃ ┃ ┣ 📜ChoiceAccommodation.js
+ ┃ ┃ ┃ ┣ 📜ChoiceRecommendYn.js
+ ┃ ┃ ┃ ┣ 📜PlanMain.js
+ ┃ ┃ ┃ ┣ 📜ShowSelection.js
+ ┃ ┃ ┃ ┗ 📜ShowSelectionNo.js
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┣ 📂MyActivityPage
+ ┃ ┃ ┃ ┃ ┣ 📜ReviewRecord.js
+ ┃ ┃ ┃ ┃ ┣ 📜TouristSpot.js
+ ┃ ┃ ┃ ┃ ┗ 📜TravelRecord.js
+ ┃ ┃ ┃ ┣ 📜Bookmark.js
+ ┃ ┃ ┃ ┣ 📜Mypage.js
+ ┃ ┃ ┃ ┣ 📜PlanDetail.js
+ ┃ ┃ ┃ ┣ 📜PlanList.js
+ ┃ ┃ ┃ ┣ 📜Record.js
+ ┃ ┃ ┃ ┣ 📜Review.js
+ ┃ ┃ ┃ ┣ 📜Share.js
+ ┃ ┃ ┃ ┣ 📜ShareDetail.js
+ ┃ ┃ ┃ ┣ 📜Sidebar.js
+ ┃ ┃ ┃ ┣ 📜SidebarItem.js
+ ┃ ┃ ┃ ┣ 📜TouristSpot.js
+ ┃ ┃ ┃ ┗ 📜UserinfoModify.js
+ ┃ ┃ ┣ 📂qna
+ ┃ ┃ ┃ ┣ 📜QNA.js
+ ┃ ┃ ┃ ┣ 📜QNADetail.js
+ ┃ ┃ ┃ ┣ 📜QuestionCreate.js
+ ┃ ┃ ┃ ┗ 📜QuestionModify.js
+ ┃ ┃ ┣ 📜HomeMain.js
+ ┃ ┃ ┣ 📜ImageMain.js
+ ┃ ┃ ┣ 📜ImageSlider.js
+ ┃ ┃ ┣ 📜Login.js
+ ┃ ┃ ┣ 📜Sights.js
+ ┃ ┃ ┗ 📜Signup.js
+ ┃ ┣ 📂style
+ ┃ ┃ ┣ 📜Mypage.css
+ ┃ ┃ ┣ 📜Paging.css
+ ┃ ┃ ┗ 📜Sights.modul.css
+ ┃ ┣ 📜.env
+ ┃ ┣ 📜App.js
+ ┃ ┣ 📜index.css
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜LoginHandler.js
+ ┃ ┣ 📜Navbar.js
+ ┃ ┗ 📜OAuth.js
+ ┣ 📜.gitignore
+ ┣ 📜main.py
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┗ 📜README.md
+```
 
+                    
