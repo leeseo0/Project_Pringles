@@ -64,7 +64,7 @@
 
 <b>[BACK-END / DATA]</b>
 <div>
-  <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white">
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
   <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
   <img src="https://img.shields.io/badge/fastapi-009688?style=for-the-badge&logo=fastapi&logoColor=white">
@@ -73,10 +73,10 @@
   <img src="https://img.shields.io/badge/selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white">
   <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"> 
   <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white">
-
+  <img src="https://img.shields.io/badge/JPA-?style=for-the-badge&logo=JPA&logoColor=white">
+  <img src="https://img.shields.io/badge/BeautifulSoup-?style=for-the-badge&logo=BeautifulSoup&logoColor=white">
 </div>
 
-- JPA, BeautifulSoup,
 
 <b>[협업툴]</b>
 <div>
