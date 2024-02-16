@@ -110,13 +110,13 @@
 <img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
 
 - 사용자가 입력한 가중치 활용한 관광지
-<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/6bb4187b-0e38-471f-91ca-2caf2bb5f190"  width="60%" height="100%"/>
 
 - 교통수단 선택 및 일정 제목 설정
-<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/3446bc3a-6fb1-4652-90ff-a4d4e947def9"  width="60%" height="100%"/>
 
 - 일정 생성 (일자별 관광지 할당)
-<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/175c6e0c-a007-4d7c-999c-30396bb64b5a"  width="60%" height="100%"/>
+<img src="https://github.com/kzoou2/Project_Pringles/assets/137479578/1e47e576-3187-4ca1-a374-58c8f22bcab9"  width="60%" height="100%"/>
 
 
 
